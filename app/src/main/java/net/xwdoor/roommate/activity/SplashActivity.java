@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 
 import net.xwdoor.roommate.R;
 import net.xwdoor.roommate.base.BaseActivity;
+import net.xwdoor.roommate.engine.RemoteService;
 
 public class SplashActivity extends BaseActivity {
 
@@ -26,23 +27,36 @@ public class SplashActivity extends BaseActivity {
         anim.setFillAfter(true);
         rlRoot.startAnimation(anim);
 
-        anim.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
+         anim.setAnimationListener(new Animation.AnimationListener() {
+             @Override
+             public void onAnimationStart(Animation animation) {
 
-            }
+             }
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                MainActivity.startAct(SplashActivity.this);
-                finish();
-            }
+             @Override
+             public void onAnimationEnd(Animation animation) {
+                 RemoteService.getInstance().invoke(RemoteService.API_LOGIN, new ARequestCallback() {
+                     @Override
+                     public void onSuccess(String content) {
+                         showLog("登录成功",content);
+                         MainActivity.startAct(SplashActivity.this);
+                         finish();
+                     }
 
-            @Override
-            public void onAnimationRepeat(Animation animation) {
+                     @Override
+                     public void onFail(String errorMessage) {
+                         super.onFail(errorMessage);
+                         LoginActivity.startAct(SplashActivity.this);
+                         finish();
+                     }
+                 });
+             }
 
-            }
-        });
+             @Override
+             public void onAnimationRepeat(Animation animation) {
+
+             }
+         });
     }
 
     @Override
