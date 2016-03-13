@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/fl_root"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <RadioGroup
+        android:id="@+id/rg_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#5aaa">
+
+        <RadioButton
+            android:id="@+id/rb_property"
+            style="@style/RadioStyle"
+            android:drawableTop="@drawable/selector_radio_property"
+            android:text="概况" />
+
+        <RadioButton
+            android:id="@+id/rb_bill"
+            style="@style/RadioStyle"
+            android:drawableTop="@drawable/selector_radio_bill"
+            android:text="账单" />
+
+        <RadioButton
+            android:id="@+id/rb_me"
+            style="@style/RadioStyle"
+            android:drawableTop="@drawable/selector_radio_me"
+            android:text="我" />
+    </RadioGroup>
+</LinearLayout>
