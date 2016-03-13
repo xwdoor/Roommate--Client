@@ -1,7 +1,5 @@
 package net.xwdoor.roommate.mockdata;
 
-import com.google.gson.Gson;
-
 import net.xwdoor.roommate.net.Response;
 
 /**
@@ -9,13 +7,6 @@ import net.xwdoor.roommate.net.Response;
  * 博客：http://blog.csdn.net/xwdoor
  */
 public abstract class MockService {
-
-    protected final Gson gson;
-
-    public MockService() {
-        gson = new Gson();
-    }
-
     public abstract String getJsonData();
 
     protected Response getSuccessResponse(){
