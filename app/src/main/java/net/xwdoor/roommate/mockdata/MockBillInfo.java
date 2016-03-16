@@ -17,6 +17,8 @@ public class MockBillInfo extends MockService {
         BillInfo billInfo = new BillInfo(23.5f,1,1,new Date(System.currentTimeMillis()),"备注");
         List<BillInfo> billInfos = new ArrayList<>();
         billInfos.add(billInfo);
+        billInfos.add(billInfo);
+        billInfos.add(billInfo);
 
         Response response = getSuccessResponse();
         response.setResult(gson.toJson(billInfos));

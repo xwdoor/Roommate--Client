@@ -15,6 +15,6 @@
     <Node
         Key="getBills"
         NetType="post"
-        MockClass="net.xwdoor.roommate.mockdata.MockLoginSuccess"
+        MockClass="net.xwdoor.roommate.mockdata.MockBillInfo"
         Url=""/>
 </url>

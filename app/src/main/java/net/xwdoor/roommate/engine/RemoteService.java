@@ -153,20 +153,22 @@ public class RemoteService {
      * @param callBack 回调接口
      */
     private void execRequest(Request request, final RequestCallback callBack) {
-        mResponse = new Response();
+//        mResponse = new Response();
         mHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                mResponse.setCode(-4);
-                mResponse.setError(e.getMessage());
-                callBack.onFailure(gson.toJson(mResponse));
+//                mResponse.setCode(-4);
+//                mResponse.setError(e.getMessage());
+//                callBack.onFailure(gson.toJson(mResponse));
+                callBack.onFailure(e.getMessage());
             }
 
             @Override
             public void onResponse(Call call, okhttp3.Response response) throws IOException {
-                mResponse.setCode(0);
-                mResponse.setResult(response.body().string());
-                callBack.onSuccess(gson.toJson(response));
+//                mResponse.setCode(0);
+//                mResponse.setResult(response.body().string());
+//                callBack.onSuccess(gson.toJson(response));
+                callBack.onSuccess(response.body().string());
             }
         });
     }
