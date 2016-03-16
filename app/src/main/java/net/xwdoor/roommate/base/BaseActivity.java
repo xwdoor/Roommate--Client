@@ -13,7 +13,7 @@ import net.xwdoor.roommate.net.RequestCallback;
 public abstract class BaseActivity extends AppCompatActivity {
     public static final String TAG_LOG = "123123";
 
-    public void showLog(String title, String content) {
+    public static void showLog(String title, String content) {
         Log.i(TAG_LOG, title + "-->" + content);
     }
 
@@ -41,10 +41,10 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected abstract void loadData();
 
-    public abstract class ARequestCallback implements RequestCallback{
+    public static abstract class ARequestCallback implements RequestCallback{
 
         @Override
-        public void onFail(String errorMessage) {
+        public void onFailure(String errorMessage) {
             showLog("请求失败",errorMessage);
         }
 

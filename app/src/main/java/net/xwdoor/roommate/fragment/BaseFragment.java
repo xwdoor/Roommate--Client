@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+
 /**
  * Created by XWdoor on 2016/3/12.
  * 博客：http://blog.csdn.net/xwdoor
@@ -16,11 +18,13 @@ import android.view.ViewGroup;
 public abstract class BaseFragment extends Fragment {
 
     protected Activity mActivity;
+    protected Gson gson;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mActivity = getActivity();
+        gson = new Gson();
     }
 
     @Nullable

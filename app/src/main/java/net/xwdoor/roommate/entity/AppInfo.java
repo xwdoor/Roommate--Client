@@ -1,12 +1,14 @@
 package net.xwdoor.roommate.entity;
 
+import java.io.Serializable;
+
 /**
  * 应用信息类
  *
  * Created by XWdoor on 2016/3/12.
  * 博客：http://blog.csdn.net/xwdoor
  */
-public class AppInfo {
+public class AppInfo implements Serializable {
     /**
      * 版本号
      */
@@ -34,11 +36,13 @@ public class AppInfo {
     }
 
     public String toJson() {
-        return "{" +
-                "\"versionCode\":" + versionCode +
-                ", \"versionName\":\"" + versionName + '\"' +
-                ", \"description\":\"" + description + '\"' +
-                ", \"downloadUrl\":\"" + downloadUrl + '\"' +
+        String json =
+                "{" +
+                "versionCode=" + versionCode +
+                ", versionName='" + versionName + '\'' +
+                ", description='" + description + '\'' +
+                ", downloadUrl='" + downloadUrl + '\'' +
                 '}';
+        return json.replaceAll("=",":").replaceAll("'","\"");
     }
 }

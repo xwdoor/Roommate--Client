@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<url>
+    <!--<Node-->
+        <!--Key=""-->
+        <!--NetType=""-->
+        <!--MockClass=""-->
+        <!--Url=""/>-->
+
+    <Node
+        Key="login"
+        NetType="post"
+        MockClass="net.xwdoor.roommate.mockdata.MockLoginSuccess"
+        Url=""/>
+
+    <Node
+        Key="getBills"
+        NetType="post"
+        MockClass="net.xwdoor.roommate.mockdata.MockLoginSuccess"
+        Url=""/>
+</url>

@@ -5,7 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.xwdoor.roommate.R;
-import net.xwdoor.roommate.activity.BillActivity;
+import net.xwdoor.roommate.activity.AddBillActivity;
 
 /**
  * Created by XWdoor on 2016/3/12.
@@ -31,7 +31,7 @@ public class PropertyFragment extends BaseFragment {
         tvAddBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BillActivity.startAct(mActivity);
+                AddBillActivity.startAct(mActivity);
             }
         });
         return view;

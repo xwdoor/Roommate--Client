@@ -8,7 +8,7 @@ public interface RequestCallback
 {
     void onSuccess(String content);
 
-    void onFail(String errorMessage);
+    void onFailure(String errorMessage);
 
     void onCookieExpired();
 }

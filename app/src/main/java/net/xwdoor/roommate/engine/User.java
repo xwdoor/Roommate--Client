@@ -66,4 +66,17 @@ public class User implements Serializable {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public String toJson() {
+        String json =
+                "{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", realName='" + realName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", mail='" + mail + '\'' +
+                '}';
+        return json.replaceAll("=",":").replaceAll("'","\"");
+    }
 }

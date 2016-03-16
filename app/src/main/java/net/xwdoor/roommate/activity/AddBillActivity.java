@@ -12,15 +12,15 @@ import net.xwdoor.roommate.base.BaseActivity;
  * Created by XWdoor on 2016/3/12.
  * 博客：http://blog.csdn.net/xwdoor
  */
-public class BillActivity extends BaseActivity {
+public class AddBillActivity extends BaseActivity {
 
     public static void startAct(Context context) {
-        Intent intent = new Intent(context, BillActivity.class);
+        Intent intent = new Intent(context, AddBillActivity.class);
         context.startActivity(intent);
     }
 
     public static void startActForResult(Context context) {
-        Intent intent = new Intent(context, BillActivity.class);
+        Intent intent = new Intent(context, AddBillActivity.class);
         ((Activity) context).startActivityForResult(intent, 0);
     }
 

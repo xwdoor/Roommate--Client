@@ -26,7 +26,7 @@ public class Response {
         this.error = error;
     }
 
-    public boolean isFail() {
+    public boolean hasError() {
         return code != 0;
     }
 
