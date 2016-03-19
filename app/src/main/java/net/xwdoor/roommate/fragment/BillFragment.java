@@ -7,9 +7,9 @@ import com.google.gson.reflect.TypeToken;
 
 import net.xwdoor.roommate.R;
 import net.xwdoor.roommate.adapter.BillFragmentAdapter;
-import net.xwdoor.roommate.base.BaseActivity;
 import net.xwdoor.roommate.engine.RemoteService;
 import net.xwdoor.roommate.entity.BillInfo;
+import net.xwdoor.roommate.net.RequestCallback;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -21,10 +21,12 @@ import java.util.ArrayList;
 public class BillFragment extends BaseFragment {
 
     private ListView lvList;
+    private BillFragmentAdapter mAdapter;
+    private ArrayList<BillInfo> mBills;
 
     @Override
     protected View initView() {
-        View view = View.inflate(mActivity, R.layout.fragment_bill,null);
+        View view = View.inflate(mActivity, R.layout.fragment_bill, null);
         lvList = (ListView) view.findViewById(R.id.lv_list);
 
         return view;
@@ -32,16 +34,26 @@ public class BillFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        RemoteService.getInstance().invoke(mActivity, RemoteService.API_KEY_GET_BILLS, null, new BaseActivity.ARequestCallback() {
+        RemoteService.getInstance().invoke(mActivity, RemoteService.API_KEY_GET_BILLS, null, new RequestCallback() {
             @Override
             public void onSuccess(String content) {
-//                Response response = gson.fromJson(content,Response.class);
                 //获取ArrayList<BillInfo>的类型，用于json解析
-                BaseActivity.showLog("content",content);
-                Type listType = new TypeToken<ArrayList<BillInfo>>(){}.getType();
-                ArrayList<BillInfo> bills = gson.fromJson(content, listType);
-                BillFragmentAdapter adapter = new BillFragmentAdapter(mActivity,bills);
-                lvList.setAdapter(adapter);
+                mActivity.showLog("content", content);
+                Type listType = new TypeToken<ArrayList<BillInfo>>() {
+                }.getType();
+                mBills = gson.fromJson(content, listType);
+                mAdapter = new BillFragmentAdapter(mActivity, mBills);
+                lvList.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                mActivity.showToast(errorMessage);
+            }
+
+            @Override
+            public void onCookieExpired() {
+
             }
         });
     }

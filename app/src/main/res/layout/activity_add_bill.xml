@@ -22,6 +22,7 @@
                 android:textSize="18sp" />
 
             <EditText
+                android:id="@+id/et_money"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="￥0.00"
@@ -41,6 +42,7 @@
                 android:textSize="18sp" />
 
             <EditText
+                android:id="@+id/et_payer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text" />
@@ -50,34 +52,46 @@
 
 
         <RadioGroup
+            android:id="@+id/rg_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RadioButton
+                android:id="@+id/rb_market"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="市场"/>
 
             <RadioButton
+                android:id="@+id/rb_super_market"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="超市" />
 
             <RadioButton
+                android:id="@+id/rb_water"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="水费" />
 
             <RadioButton
+                android:id="@+id/rb_electricity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="电费" />
 
             <RadioButton
+                android:id="@+id/rb_gas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="气费" />
+
+            <RadioButton
+                android:id="@+id/rb_other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="其他" />
 
         </RadioGroup>
 
@@ -89,6 +103,7 @@
             android:text="备注" />
 
         <EditText
+            android:id="@+id/et_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
@@ -105,12 +120,14 @@
         android:layout_alignParentBottom="true">
 
         <Button
+            android:id="@+id/btn_add_bill_again"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="再记一笔"/>
 
         <Button
+            android:id="@+id/btn_save"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -1,6 +1,5 @@
 package net.xwdoor.roommate.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,19 +10,21 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 
+import net.xwdoor.roommate.base.BaseActivity;
+
 /**
  * Created by XWdoor on 2016/3/12.
  * 博客：http://blog.csdn.net/xwdoor
  */
 public abstract class BaseFragment extends Fragment {
 
-    protected Activity mActivity;
+    protected BaseActivity mActivity;
     protected Gson gson;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mActivity = getActivity();
+        mActivity = (BaseActivity)getActivity();
         gson = new Gson();
     }
 
@@ -38,6 +39,11 @@ public abstract class BaseFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initData();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     /**

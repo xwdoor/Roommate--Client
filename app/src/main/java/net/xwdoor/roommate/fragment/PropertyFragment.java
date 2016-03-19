@@ -20,7 +20,7 @@ public class PropertyFragment extends BaseFragment {
 
     @Override
     protected View initView() {
-        View view = View.inflate(mActivity, R.layout.fragment_property,null);
+        View view = View.inflate(mActivity, R.layout.fragment_property, null);
 
         tvAllBill = (TextView) view.findViewById(R.id.tv_all_bill);
         tvMothBill = (TextView) view.findViewById(R.id.tv_moth_bill);
@@ -41,4 +41,5 @@ public class PropertyFragment extends BaseFragment {
     protected void initData() {
 
     }
+
 }

@@ -24,7 +24,7 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
         RelativeLayout rlRoot = (RelativeLayout) findViewById(R.id.rl_root);
 
-        ScaleAnimation anim = new ScaleAnimation(1, 1.4f, 1, 1.4f,
+        ScaleAnimation anim = new ScaleAnimation(1, 1.3f, 1, 1.3f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         anim.setDuration(2000);
         anim.setFillAfter(true);

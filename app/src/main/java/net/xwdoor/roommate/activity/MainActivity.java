@@ -66,7 +66,7 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
-
+        rgGroup.check(R.id.rb_property);
     }
 
     /**
@@ -85,4 +85,9 @@ public class MainActivity extends BaseActivity {
     protected void loadData() {
 
     }
+
+    public BillFragment getBillFragment(){
+        return mBillFragment;
+    }
+
 }

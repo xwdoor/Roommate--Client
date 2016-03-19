@@ -27,7 +27,7 @@ public class BillInfo implements Serializable {
         this.payerId = payerId;
         this.billType = billType;
         this.date = date;
-        this.remark = remark;
+        this.desc = remark;
     }
 
     /** 金额 */
@@ -40,7 +40,7 @@ public class BillInfo implements Serializable {
     /** 日期 */
     public Date date;
     /** 描述 */
-    private String remark;
+    public String desc;
 
     public String toJson() {
         String json =
@@ -49,7 +49,7 @@ public class BillInfo implements Serializable {
                 ", payerId=" + payerId +
                 ", billType=" + billType +
                 ", date=" + date +
-                ", remark='" + remark + '\'' +
+                ", desc='" + desc + '\'' +
                 '}';
         return json.replaceAll("=",":").replaceAll("'","\"");
     }

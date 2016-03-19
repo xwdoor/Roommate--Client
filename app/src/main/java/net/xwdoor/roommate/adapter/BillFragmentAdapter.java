@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * 账单数据适配器
- * <p/>
+ *
  * Created by XWdoor on 2016/3/16.
  * 博客：http://blog.csdn.net/xwdoor
  */
@@ -47,7 +47,7 @@ public class BillFragmentAdapter extends BaseAdapter {
         View view = View.inflate(mContext, R.layout.item_fragment_bill, null);
         TextView tvMoney = (TextView) view.findViewById(R.id.tv_money);
         BillInfo info = getItem(position);
-        tvMoney.setText(info.money + "");
+        tvMoney.setText("￥"+info.money);
         return view;
     }
 }

@@ -34,6 +34,7 @@ public class RemoteService {
 
     public static final String API_KEY_LOGIN = "login";
     public static final String API_KEY_GET_BILLS = "getBills";
+    public static final String API_KEY_SAVE_BILL = "saveBill";
 
     private final OkHttpClient mHttpClient;
     private final Gson gson;

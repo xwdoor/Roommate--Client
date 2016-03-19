@@ -3,6 +3,7 @@ package net.xwdoor.roommate.base;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import net.xwdoor.roommate.net.RequestCallback;
 
@@ -13,8 +14,12 @@ import net.xwdoor.roommate.net.RequestCallback;
 public abstract class BaseActivity extends AppCompatActivity {
     public static final String TAG_LOG = "123123";
 
-    public static void showLog(String title, String content) {
+    public void showLog(String title, String content) {
         Log.i(TAG_LOG, title + "-->" + content);
+    }
+
+    public void showToast(String msg){
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -41,11 +46,12 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected abstract void loadData();
 
-    public static abstract class ARequestCallback implements RequestCallback{
+    public abstract class ARequestCallback implements RequestCallback{
 
         @Override
         public void onFailure(String errorMessage) {
             showLog("请求失败",errorMessage);
+            showToast(errorMessage);
         }
 
         @Override
