@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import net.xwdoor.roommate.net.RequestCallback;
 
 /**
@@ -13,6 +15,7 @@ import net.xwdoor.roommate.net.RequestCallback;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     public static final String TAG_LOG = "123123";
+    protected Gson gson;
 
     public void showLog(String title, String content) {
         Log.i(TAG_LOG, title + "-->" + content);
@@ -25,6 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        gson = new Gson();
 
         initVariables();
         initViews(savedInstanceState);

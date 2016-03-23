@@ -1,5 +1,7 @@
 package net.xwdoor.roommate.mockdata;
 
+import android.content.Context;
+
 import net.xwdoor.roommate.engine.User;
 import net.xwdoor.roommate.net.Response;
 
@@ -11,7 +13,7 @@ import net.xwdoor.roommate.net.Response;
  */
 public class MockLoginSuccess extends MockService {
     @Override
-    public String getJsonData() {
+    public String getJsonData(Context context) {
         Response response = getSuccessResponse();
 
         User user = new User("xwdoor","xwdoor");

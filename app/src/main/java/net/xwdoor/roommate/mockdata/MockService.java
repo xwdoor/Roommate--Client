@@ -1,5 +1,7 @@
 package net.xwdoor.roommate.mockdata;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 
 import net.xwdoor.roommate.net.Response;
@@ -16,9 +18,9 @@ public abstract class MockService {
         gson = new Gson();
     }
 
-    public abstract String getJsonData();
+    public abstract String getJsonData(Context context);
 
-    protected Response getSuccessResponse(){
+    protected Response getSuccessResponse() {
         Response response = new Response();
 
         response.setCode(0);

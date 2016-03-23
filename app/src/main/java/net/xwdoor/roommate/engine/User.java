@@ -3,6 +3,8 @@ package net.xwdoor.roommate.engine;
 import java.io.Serializable;
 
 /**
+ * 用户信息
+ *
  * Created by XWdoor on 2016/3/13.
  * 博客：http://blog.csdn.net/xwdoor
  */

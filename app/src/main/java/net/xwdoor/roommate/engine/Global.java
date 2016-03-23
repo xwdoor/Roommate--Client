@@ -2,8 +2,8 @@ package net.xwdoor.roommate.engine;
 
 import net.xwdoor.roommate.entity.BillInfo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by XWdoor on 2016/3/19.
@@ -18,12 +18,37 @@ public class Global {
             synchronized (Global.class){
                 billInfos = new ArrayList<>();
 
-                BillInfo billInfo = new BillInfo(23.5f,1,1,new Date(System.currentTimeMillis()),"备注");
+                BillInfo billInfo = new BillInfo(23.5f,1,1,new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()),"备注");
                 billInfos.add(billInfo);
                 billInfos.add(billInfo);
                 billInfos.add(billInfo);
             }
         }
         return  billInfos;
+    }
+
+    public static String getBillType(int typeId){
+        String type = "其他";
+        switch (typeId){
+            case 0:
+                type = "市场";
+                break;
+            case 1:
+                type = "超市";
+                break;
+            case 2:
+                type = "水费";
+                break;
+            case 3:
+                type = "电费";
+                break;
+            case 4:
+                type = "气费";
+                break;
+            default:
+                type = "其他";
+                break;
+        }
+        return type;
     }
 }

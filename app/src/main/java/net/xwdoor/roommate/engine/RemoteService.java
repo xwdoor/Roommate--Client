@@ -35,6 +35,9 @@ public class RemoteService {
     public static final String API_KEY_LOGIN = "login";
     public static final String API_KEY_GET_BILLS = "getBills";
     public static final String API_KEY_SAVE_BILL = "saveBill";
+    public static final String API_KEY_UPDATE_BILL = "updateBill";
+    public static final String API_KEY_GET_BILL_TYPE = "getBillType";
+    public static final String API_KEY_GET_ROOMMATES = "getRoommates";
 
     private final OkHttpClient mHttpClient;
     private final Gson gson;
@@ -75,7 +78,7 @@ public class RemoteService {
             try {
                 //通过 url.xml 文件中的记录进行反射
                 MockService mockService = (MockService) Class.forName(urlData.getMockClass()).newInstance();
-                response = gson.fromJson(mockService.getJsonData(), Response.class);
+                response = gson.fromJson(mockService.getJsonData(activity), Response.class);
 
             } catch (InstantiationException e) {
                 response.setCode(-1);

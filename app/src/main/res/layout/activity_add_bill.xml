@@ -57,41 +57,41 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/rb_market"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="市场"/>
+            <!--<RadioButton-->
+                <!--android:id="@+id/rb_market"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="市场"/>-->
 
-            <RadioButton
-                android:id="@+id/rb_super_market"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="超市" />
+            <!--<RadioButton-->
+                <!--android:id="@+id/rb_super_market"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="超市" />-->
 
-            <RadioButton
-                android:id="@+id/rb_water"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="水费" />
+            <!--<RadioButton-->
+                <!--android:id="@+id/rb_water"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="水费" />-->
 
-            <RadioButton
-                android:id="@+id/rb_electricity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="电费" />
+            <!--<RadioButton-->
+                <!--android:id="@+id/rb_electricity"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="电费" />-->
 
-            <RadioButton
-                android:id="@+id/rb_gas"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="气费" />
+            <!--<RadioButton-->
+                <!--android:id="@+id/rb_gas"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="气费" />-->
 
-            <RadioButton
-                android:id="@+id/rb_other"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="其他" />
+            <!--<RadioButton-->
+                <!--android:id="@+id/rb_other"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="其他" />-->
 
         </RadioGroup>
 

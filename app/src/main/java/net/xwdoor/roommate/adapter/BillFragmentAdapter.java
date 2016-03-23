@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import net.xwdoor.roommate.R;
+import net.xwdoor.roommate.engine.Global;
 import net.xwdoor.roommate.entity.BillInfo;
 
 import java.util.List;
@@ -46,8 +47,12 @@ public class BillFragmentAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = View.inflate(mContext, R.layout.item_fragment_bill, null);
         TextView tvMoney = (TextView) view.findViewById(R.id.tv_money);
+        TextView tvDate = (TextView) view.findViewById(R.id.tv_date);
+        TextView tvType = (TextView) view.findViewById(R.id.tv_type);
         BillInfo info = getItem(position);
         tvMoney.setText("￥"+info.money);
+        tvDate.setText(info.date);
+        tvType.setText(Global.getBillType(info.billType));
         return view;
     }
 }

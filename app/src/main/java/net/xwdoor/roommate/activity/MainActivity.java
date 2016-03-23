@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.widget.RadioGroup;
 
 import net.xwdoor.roommate.R;
 import net.xwdoor.roommate.base.BaseActivity;
+import net.xwdoor.roommate.entity.BillInfo;
 import net.xwdoor.roommate.fragment.BaseFragment;
 import net.xwdoor.roommate.fragment.BillFragment;
 import net.xwdoor.roommate.fragment.MeFragment;
@@ -24,6 +26,11 @@ public class MainActivity extends BaseActivity {
     private static final String TAG_PROPERTY_FRAGMENT = "property_fragment";
     private static final String TAG_BILL_FRAGMENT = "bill_fragment";
     private static final String TAG_ME_FRAGMENT = "me_fragment";
+    public static final int REQUEST_CODE_ADD_BILL = 1;
+    public static final int REQUEST_CODE_UPDATE_BILL = 2;
+    public static final int RESULT_CODE_SAVE = 1;
+    public static final int RESULT_CODE_SAVE_ADD = 2;
+
     private PropertyFragment mPropertyFragment;
     private BillFragment mBillFragment;
     private MeFragment mMeFragment;
@@ -86,8 +93,17 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    public BillFragment getBillFragment(){
-        return mBillFragment;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case REQUEST_CODE_ADD_BILL://添加账单
+                break;
+            case REQUEST_CODE_UPDATE_BILL://修改账单
+                Log.i(TAG_LOG,"修改账单");
+                BillInfo billInfo = (BillInfo) data.getSerializableExtra("billInfo");
+                mBillFragment.updateBill(billInfo);
+                break;
+        }
     }
-
 }

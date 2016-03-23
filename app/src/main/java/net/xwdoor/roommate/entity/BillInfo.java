@@ -1,7 +1,6 @@
 package net.xwdoor.roommate.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 账单
@@ -22,7 +21,7 @@ public class BillInfo implements Serializable {
      * @param date 日期
      * @param remark 备注
      */
-    public BillInfo(float money, int payerId, int billType, Date date, String remark) {
+    public BillInfo(float money, int payerId, int billType, String date, String remark) {
         this.money = money;
         this.payerId = payerId;
         this.billType = billType;
@@ -30,6 +29,7 @@ public class BillInfo implements Serializable {
         this.desc = remark;
     }
 
+    public int id;
     /** 金额 */
     public float money;
     /** 付款人 */
@@ -38,7 +38,7 @@ public class BillInfo implements Serializable {
     public int billType;
 //    private String billDesc;
     /** 日期 */
-    public Date date;
+    public String date;
     /** 描述 */
     public String desc;
 
