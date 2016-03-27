@@ -49,10 +49,12 @@ public class BillFragmentAdapter extends BaseAdapter {
         TextView tvMoney = (TextView) view.findViewById(R.id.tv_money);
         TextView tvDate = (TextView) view.findViewById(R.id.tv_date);
         TextView tvType = (TextView) view.findViewById(R.id.tv_type);
+        TextView tvPayerName = (TextView) view.findViewById(R.id.tv_payerName);
         BillInfo info = getItem(position);
         tvMoney.setText("￥"+info.money);
         tvDate.setText(info.date);
         tvType.setText(Global.getBillType(info.billType));
+        tvPayerName.setText("("+Global.getPayerName(info.payerId)+")");
         return view;
     }
 }

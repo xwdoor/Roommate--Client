@@ -30,14 +30,26 @@
             android:layout_marginLeft="10dp"/>
 
         <TextView
+            android:id="@+id/tv_payerName"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:text="(付款人)"
+            android:layout_alignParentRight="true"
+            android:textColor="@android:color/darker_gray"
+            android:gravity="center"
+            android:textSize="14sp"/>
+
+        <TextView
             android:id="@+id/tv_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:text="金额"
             android:textColor="@android:color/black"
+            android:layout_toLeftOf="@id/tv_payerName"
+            android:layout_marginRight="5dp"
             android:textSize="14sp"
-            android:layout_marginRight="10dp"/>
+            />
+
 
     </RelativeLayout>
 

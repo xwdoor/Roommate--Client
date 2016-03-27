@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <TextView
+            style="@style/Titlebar"
+            android:layout_alignParentTop="true"
+            android:text="记账" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,11 +46,12 @@
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/et_payer"
+            <TextView
+                android:id="@+id/tv_payer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <include layout="@layout/layout_line" />
@@ -58,40 +64,40 @@
             android:orientation="vertical">
 
             <!--<RadioButton-->
-                <!--android:id="@+id/rb_market"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="市场"/>-->
+            <!--android:id="@+id/rb_market"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="市场"/>-->
 
             <!--<RadioButton-->
-                <!--android:id="@+id/rb_super_market"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="超市" />-->
+            <!--android:id="@+id/rb_super_market"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="超市" />-->
 
             <!--<RadioButton-->
-                <!--android:id="@+id/rb_water"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="水费" />-->
+            <!--android:id="@+id/rb_water"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="水费" />-->
 
             <!--<RadioButton-->
-                <!--android:id="@+id/rb_electricity"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="电费" />-->
+            <!--android:id="@+id/rb_electricity"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="电费" />-->
 
             <!--<RadioButton-->
-                <!--android:id="@+id/rb_gas"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="气费" />-->
+            <!--android:id="@+id/rb_gas"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="气费" />-->
 
             <!--<RadioButton-->
-                <!--android:id="@+id/rb_other"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="其他" />-->
+            <!--android:id="@+id/rb_other"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="其他" />-->
 
         </RadioGroup>
 
@@ -116,21 +122,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_add_bill_again"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="再记一笔"/>
+            android:text="再记一笔" />
+
+        <Button
+            android:id="@+id/btn_delete_bill"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:text="删除" />
 
         <Button
             android:id="@+id/btn_save"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="保存"/>
+            android:text="保存" />
     </LinearLayout>
 </RelativeLayout>

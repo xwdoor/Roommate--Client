@@ -33,6 +33,11 @@ public class MockGetRoommates extends MockService {
         user.setRealName("赵景明");
         users.add(user);
 
+        user = new User("白杨","");
+        user.setId(3);
+        user.setRealName("白杨");
+        users.add(user);
+
         Response response = getSuccessResponse();
         response.setResult(gson.toJson(users));
         return gson.toJson(response);

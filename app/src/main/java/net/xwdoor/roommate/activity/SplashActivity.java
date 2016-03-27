@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 
 import net.xwdoor.roommate.R;
 import net.xwdoor.roommate.base.BaseActivity;
+import net.xwdoor.roommate.engine.Global;
 import net.xwdoor.roommate.engine.RemoteService;
 import net.xwdoor.roommate.net.RequestParameter;
 
@@ -67,6 +68,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
+        Global.init(this);
         checkUpdate();
     }
 

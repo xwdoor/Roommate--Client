@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.widget.RadioGroup;
 
 import net.xwdoor.roommate.R;
@@ -29,7 +28,7 @@ public class MainActivity extends BaseActivity {
     public static final int REQUEST_CODE_ADD_BILL = 1;
     public static final int REQUEST_CODE_UPDATE_BILL = 2;
     public static final int RESULT_CODE_SAVE = 1;
-    public static final int RESULT_CODE_SAVE_ADD = 2;
+    public static final int RESULT_CODE_DELETE = 2;
 
     private PropertyFragment mPropertyFragment;
     private BillFragment mBillFragment;
@@ -78,6 +77,7 @@ public class MainActivity extends BaseActivity {
 
     /**
      * 初始化Fragment
+     *
      * @param fragment
      * @param fragmentTag
      */
@@ -96,13 +96,22 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
+        switch (requestCode) {
             case REQUEST_CODE_ADD_BILL://添加账单
+                showLog("", "添加账单");
                 break;
             case REQUEST_CODE_UPDATE_BILL://修改账单
-                Log.i(TAG_LOG,"修改账单");
-                BillInfo billInfo = (BillInfo) data.getSerializableExtra("billInfo");
-                mBillFragment.updateBill(billInfo);
+                //点击保存才有效果，点击返回不做处理
+                if (data != null) {
+                    BillInfo billInfo = (BillInfo) data.getSerializableExtra("billInfo");
+                    if (resultCode == RESULT_CODE_SAVE) {
+                        showLog("", "修改账单");
+                        mBillFragment.updateBill(billInfo);
+                    } else if (resultCode == RESULT_CODE_DELETE) {
+                        //删除账单
+                        mBillFragment.deleteBill(billInfo);
+                    }
+                }
                 break;
         }
     }

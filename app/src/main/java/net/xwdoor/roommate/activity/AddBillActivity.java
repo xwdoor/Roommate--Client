@@ -1,7 +1,9 @@
 package net.xwdoor.roommate.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,20 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
-import com.google.gson.reflect.TypeToken;
+import android.widget.TextView;
 
 import net.xwdoor.roommate.R;
 import net.xwdoor.roommate.base.BaseActivity;
 import net.xwdoor.roommate.db.BillDao;
+import net.xwdoor.roommate.engine.Global;
 import net.xwdoor.roommate.engine.RemoteService;
-import net.xwdoor.roommate.engine.User;
 import net.xwdoor.roommate.entity.BillInfo;
 import net.xwdoor.roommate.entity.BillType;
 import net.xwdoor.roommate.net.RequestParameter;
 import net.xwdoor.roommate.utils.DateUtils;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -34,9 +34,10 @@ import java.util.Date;
 public class AddBillActivity extends BaseActivity {
 
     private EditText etMoney;
-    private EditText etPayer;
+    private TextView tvPayer;
     private EditText etDesc;
     private int mBillType;
+    private int mPayerId;
     private BillInfo mBillInfo;
     private boolean isUpdateBill;
     private RadioGroup rgGroup;
@@ -62,6 +63,8 @@ public class AddBillActivity extends BaseActivity {
         mBillInfo = (BillInfo) getIntent().getSerializableExtra("billInfo");
         if (mBillInfo != null) {
             isUpdateBill = true;
+            mPayerId = mBillInfo.payerId;
+            mBillType = mBillInfo.billType;
         } else {
             isUpdateBill = false;
         }
@@ -73,16 +76,18 @@ public class AddBillActivity extends BaseActivity {
 
         Button btnAddBill = (Button) findViewById(R.id.btn_add_bill_again);
         Button btnSave = (Button) findViewById(R.id.btn_save);
+        Button btnDelete = (Button) findViewById(R.id.btn_delete_bill);
         rgGroup = (RadioGroup) findViewById(R.id.rg_group);
         etMoney = (EditText) findViewById(R.id.et_money);
-        etPayer = (EditText) findViewById(R.id.et_payer);
+        tvPayer = (TextView) findViewById(R.id.tv_payer);
         etDesc = (EditText) findViewById(R.id.et_desc);
 
         if (isUpdateBill) {
             etMoney.setText(mBillInfo.money + "");
-            etPayer.setText(mBillInfo.payerId + "");
+            tvPayer.setText(Global.getPayerName(mPayerId));
             etDesc.setText(mBillInfo.desc);
             btnAddBill.setVisibility(View.GONE);
+            btnDelete.setVisibility(View.VISIBLE);
         }
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -99,32 +104,45 @@ public class AddBillActivity extends BaseActivity {
             }
         });
 
-//        rgGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                switch (checkedId) {
-//                    case R.id.rb_market://市场
-//                        mBillType = 0;
-//                        break;
-//                    case R.id.rb_super_market://超市
-//                        mBillType = 1;
-//                        break;
-//                    case R.id.rb_water://水费
-//                        mBillType = 2;
-//                        break;
-//                    case R.id.rb_electricity://电费
-//                        mBillType = 3;
-//                        break;
-//                    case R.id.rb_gas://气费
-//                        mBillType = 4;
-//                        break;
-//                    case R.id.rb_other://其他
-//                        mBillType = 5;
-//                        break;
-//                }
-//            }
-//        });
-//        rgGroup.check(R.id.rb_market);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteBill();
+            }
+        });
+
+        tvPayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showChooseDialog();
+            }
+        });
+        rgGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                mBillType = checkedId;
+            }
+        });
+    }
+
+    /**
+     * 删除账单
+     */
+    private void deleteBill() {
+        final BillInfo billInfo = getBillInfo();
+        ArrayList<RequestParameter> params = new ArrayList<>();
+        params.add(new RequestParameter("id", billInfo.id + ""));
+
+        BillDao.getInstance(this).deleteBill(billInfo.id);
+        RemoteService.getInstance().invoke(this, RemoteService.API_KEY_DELETE_BILL,
+                params, new ARequestCallback() {
+                    @Override
+                    public void onSuccess(String content) {
+                        showToast("删除成功");
+                        setResult(MainActivity.RESULT_CODE_DELETE, new Intent().putExtra("billInfo", billInfo));
+                        finish();
+                    }
+                });
     }
 
     /**
@@ -132,7 +150,12 @@ public class AddBillActivity extends BaseActivity {
      */
     private void saveAddBill() {
         ArrayList<RequestParameter> params = getBillInfoParam();
-
+//        setResult(MainActivity.RESULT_CODE_SAVE_ADD);
+//        showLog("", "saveAddBill");
+        //添加账单
+        BillDao.getInstance(this).addBill(getBillInfo());
+        RemoteService.getInstance().invoke(this, RemoteService.API_KEY_SAVE_BILL,
+                params, null);
     }
 
     /**
@@ -151,7 +174,7 @@ public class AddBillActivity extends BaseActivity {
                         @Override
                         public void onSuccess(String content) {
                             showToast("保存成功");
-                            setResult(MainActivity.RESULT_CODE_SAVE,new Intent().putExtra("billInfo",mBillInfo));
+                            setResult(MainActivity.RESULT_CODE_SAVE, new Intent().putExtra("billInfo", mBillInfo));
                             finish();
                         }
                     });
@@ -181,54 +204,28 @@ public class AddBillActivity extends BaseActivity {
         mBillInfo.billType = mBillType;
         mBillInfo.date = DateUtils.DateToStr(new Date(System.currentTimeMillis()));
         mBillInfo.desc = etDesc.getText().toString();
-        mBillInfo.payerId = 0;
+        mBillInfo.payerId = mPayerId;
         return mBillInfo;
     }
 
     private ArrayList<RequestParameter> getBillInfoParam() {
 
         ArrayList<RequestParameter> params = new ArrayList<RequestParameter>();
-        if (mBillInfo != null) {
+        if (mBillInfo != null) {//更新账单需要有账单id
             params.add(new RequestParameter("id", mBillInfo.id + ""));
         }
         params.add(new RequestParameter("money", etMoney.getText().toString()));
         params.add(new RequestParameter("billType", mBillType + ""));
         params.add(new RequestParameter("date", new Date(System.currentTimeMillis()).toString()));
         params.add(new RequestParameter("desc", etDesc.getText().toString()));
-        params.add(new RequestParameter("payerId", "0"));
+        params.add(new RequestParameter("payerId", mPayerId + ""));
         return params;
     }
 
     @Override
     protected void loadData() {
-        //获取室友列表
-        RemoteService.getInstance().invoke(this, RemoteService.API_KEY_GET_ROOMMATES, null, new ARequestCallback() {
-            @Override
-            public void onSuccess(String content) {
-                Type listType = new TypeToken<ArrayList<User>>() {
-                }.getType();
-                ArrayList<User> userList = gson.fromJson(content, listType);
-                if (isUpdateBill) {
-                    for (User user : userList) {
-                        if (user.getId() == mBillInfo.payerId) {
-                            etPayer.setText(user.getRealName());
-                            break;
-                        }
-                    }
-                }
-            }
-        });
-
-        //获取账单类型
-        RemoteService.getInstance().invoke(this, RemoteService.API_KEY_GET_BILL_TYPE, null, new ARequestCallback() {
-            @Override
-            public void onSuccess(String content) {
-                Type listType = new TypeToken<ArrayList<BillType>>() {
-                }.getType();
-                ArrayList<BillType> billTypes = gson.fromJson(content, listType);
-                initBillType(billTypes);
-            }
-        });
+        Global.getPayerName(mPayerId);
+        initBillType(Global.sBillType);
     }
 
     /**
@@ -244,8 +241,23 @@ public class AddBillActivity extends BaseActivity {
             rb.setChecked(true);
             rgGroup.addView(rb);
         }
-        if (isUpdateBill) {
-            rgGroup.check(mBillInfo.billType);
-        }
+        rgGroup.check(mBillType);
+    }
+
+    private void showChooseDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("选择付款人");
+        builder.setIcon(R.mipmap.ic_launcher);
+        final String[] payers = Global.getPayers();
+        builder.setSingleChoiceItems(payers, mPayerId, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mPayerId = Global.getPayerId(payers[which]);
+                tvPayer.setText(payers[which]);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("取消", null);
+        builder.show();
     }
 }

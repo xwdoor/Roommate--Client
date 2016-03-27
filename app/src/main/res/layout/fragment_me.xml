@@ -6,5 +6,17 @@
 
     <TextView
         style="@style/Titlebar"
-        android:text="我" />
+        android:text="我的" />
+
+    <Button
+        android:id="@+id/btn_my_bill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="我的账单"/>
+
+    <Button
+        android:id="@+id/btn_user_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="成员列表"/>
 </LinearLayout>

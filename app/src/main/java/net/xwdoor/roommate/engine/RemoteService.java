@@ -33,9 +33,11 @@ public class RemoteService {
     public static final String REQUEST_POST = "post";
 
     public static final String API_KEY_LOGIN = "login";
-    public static final String API_KEY_GET_BILLS = "getBills";
+    public static final String API_KEY_GET_ALL_BILLS = "getAllBills";
+    public static final String API_KEY_GET_USER_BILL = "getUserBill";
     public static final String API_KEY_SAVE_BILL = "saveBill";
     public static final String API_KEY_UPDATE_BILL = "updateBill";
+    public static final String API_KEY_DELETE_BILL = "deleteBill";
     public static final String API_KEY_GET_BILL_TYPE = "getBillType";
     public static final String API_KEY_GET_ROOMMATES = "getRoommates";
 

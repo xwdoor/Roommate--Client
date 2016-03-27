@@ -45,7 +45,7 @@ public class BillFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        RemoteService.getInstance().invoke(mActivity, RemoteService.API_KEY_GET_BILLS, null, new RequestCallback() {
+        RemoteService.getInstance().invoke(mActivity, RemoteService.API_KEY_GET_ALL_BILLS, null, new RequestCallback() {
             @Override
             public void onSuccess(String content) {
                 //获取ArrayList<BillInfo>的类型，用于json解析
@@ -82,6 +82,15 @@ public class BillFragment extends BaseFragment {
             }
         }
         mAdapter.notifyDataSetChanged();
-//        Log.i(BaseActivity.TAG_LOG, String.valueOf(mBills.contains(billInfo)));
+    }
+
+    public void deleteBill(BillInfo billInfo) {
+        for (BillInfo info : mBills) {
+            if(info.id == billInfo.id){
+                mBills.remove(info);
+                break;
+            }
+        }
+        mAdapter.notifyDataSetChanged();
     }
 }

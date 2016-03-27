@@ -21,7 +21,7 @@
             android:id="@+id/rb_property"
             style="@style/RadioStyle"
             android:drawableTop="@drawable/selector_radio_property"
-            android:text="概况" />
+            android:text="记账" />
 
         <RadioButton
             android:id="@+id/rb_bill"
@@ -33,6 +33,6 @@
             android:id="@+id/rb_me"
             style="@style/RadioStyle"
             android:drawableTop="@drawable/selector_radio_me"
-            android:text="我" />
+            android:text="我的" />
     </RadioGroup>
 </LinearLayout>

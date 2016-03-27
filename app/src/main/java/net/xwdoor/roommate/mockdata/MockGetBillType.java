@@ -8,6 +8,8 @@ import net.xwdoor.roommate.net.Response;
 import java.util.ArrayList;
 
 /**
+ * 获取所有的账单类型
+ *
  * Created by XWdoor on 2016/3/20.
  * 博客：http://blog.csdn.net/xwdoor
  */

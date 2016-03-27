@@ -2,25 +2,24 @@ package net.xwdoor.roommate.mockdata;
 
 import android.content.Context;
 
-import net.xwdoor.roommate.db.BillDao;
 import net.xwdoor.roommate.entity.BillInfo;
 import net.xwdoor.roommate.net.Response;
+import net.xwdoor.roommate.utils.DateUtils;
 
-import java.util.ArrayList;
+import java.util.Date;
 
 /**
- * 获取某用户的账单
- *
- * Created by XWdoor on 2016/3/23.
+ * Created by XWdoor on 2016/3/25.
  * 博客：http://blog.csdn.net/xwdoor
  */
-public class MockGetUserBill extends MockService {
+public class MockDeleteBill extends MockService {
     @Override
     public String getJsonData(Context context) {
-        ArrayList<BillInfo> billInfos = BillDao.getInstance(context).getUserBill(0);
+        BillInfo billInfo = new BillInfo(23.5f, 1, 1,
+                DateUtils.DateToStr(new Date(System.currentTimeMillis())), "备注");
 
         Response response = getSuccessResponse();
-        response.setResult(gson.toJson(billInfos));
+        response.setResult(gson.toJson(billInfo));
         return gson.toJson(response);
     }
 }

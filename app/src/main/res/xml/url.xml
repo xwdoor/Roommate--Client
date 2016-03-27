@@ -13,9 +13,15 @@
         Url=""/>
 
     <Node
-        Key="getBills"
+        Key="getAllBills"
         NetType="get"
         MockClass="net.xwdoor.roommate.mockdata.MockGetAllBills"
+        Url=""/>
+
+    <Node
+        Key="getUserBill"
+        NetType="get"
+        MockClass="net.xwdoor.roommate.mockdata.MockGetUserBill"
         Url=""/>
 
     <Node
@@ -28,6 +34,12 @@
         Key="updateBill"
         NetType="post"
         MockClass="net.xwdoor.roommate.mockdata.MockUpdateBill"
+        Url=""/>
+
+    <Node
+        Key="deleteBill"
+        NetType="post"
+        MockClass="net.xwdoor.roommate.mockdata.MockDeleteBill"
         Url=""/>
 
     <Node

@@ -91,4 +91,29 @@ public class BillDao {
         database.close();
         return billInfos;
     }
+
+    /**
+     * 获取某成员账单数据
+     */
+    public ArrayList<BillInfo> getUserBill(int id) {
+        SQLiteDatabase database = mBillOpenHelper.getReadableDatabase();
+        Cursor cursor = database.query(BillOpenHelper.TABLE_BILL, null, BillOpenHelper.COLUMN_PAYER_ID + "=?", new String[]{id+""}, null, null, null);
+
+        ArrayList<BillInfo> billInfos = new ArrayList<>();
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                BillInfo billInfo = new BillInfo();
+                billInfo.id = cursor.getInt(cursor.getColumnIndex(BillOpenHelper.COLUMN_ID));
+                billInfo.money = cursor.getFloat(cursor.getColumnIndex(BillOpenHelper.COLUMN_MONEY));
+                billInfo.payerId = cursor.getInt(cursor.getColumnIndex(BillOpenHelper.COLUMN_PAYER_ID));
+                billInfo.billType = cursor.getInt(cursor.getColumnIndex(BillOpenHelper.COLUMN_BILL_TYPE));
+                billInfo.date = cursor.getString(cursor.getColumnIndex(BillOpenHelper.COLUMN_DATE));
+                billInfo.desc = cursor.getString(cursor.getColumnIndex(BillOpenHelper.COLUMN_DESC));
+                billInfos.add(billInfo);
+            }
+            cursor.close();
+        }
+        database.close();
+        return billInfos;
+    }
 }

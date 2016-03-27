@@ -24,20 +24,25 @@ public class BillOpenHelper extends SQLiteOpenHelper {
         super(context, "billData", null, 1);
     }
 
+    String createBillData = "create table "+TABLE_BILL+" (" +
+            "_id integer primary key autoincrement, " +
+            "money decimal(10,2), " +
+            "payerId integer," +
+            "billType integer," +
+            "date varchar(20)," +
+            "desc text)";
+
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "create table "+TABLE_BILL+" (" +
-                "_id integer primary key autoincrement, " +
-                "money decimal(10,2), " +
-                "payerId integer," +
-                "billType integer," +
-                "date varchar(20)," +
-                "desc text)";
-        db.execSQL(sql);
+        db.execSQL(createBillData);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        switch (oldVersion){
+            case 1:
+//                db.execSQL(createBillData);
+                break;
+        }
     }
 }
