@@ -40,6 +40,8 @@ public class BillInfo implements Serializable {
     public boolean isFinish;
     /** 日期 */
     public String date;
+    /** 是否已结算 */
+    public boolean isFinish;
     /** 描述 */
     public String desc;
 
