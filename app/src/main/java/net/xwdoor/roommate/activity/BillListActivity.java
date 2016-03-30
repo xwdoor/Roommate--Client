@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 
 import com.google.gson.reflect.TypeToken;
@@ -47,6 +48,7 @@ public class BillListActivity extends BaseActivity {
         setContentView(R.layout.fragment_bill);
 
         lvList = (ListView) findViewById(R.id.lv_list);
+        findViewById(R.id.ddm_dropDownMenu).setVisibility(View.GONE);
     }
 
     @Override
@@ -57,12 +59,12 @@ public class BillListActivity extends BaseActivity {
                 params, new ARequestCallback() {
                     @Override
                     public void onSuccess(String content) {
-                        showLog("BillListActivity",content);
+                        showLog("BillListActivity", content);
                         Type listType = new TypeToken<ArrayList<BillInfo>>() {
                         }.getType();
 
                         ArrayList<BillInfo> bills = gson.fromJson(content, listType);
-                        lvList.setAdapter(new BillFragmentAdapter(BillListActivity.this,bills));
+                        lvList.setAdapter(new BillFragmentAdapter(BillListActivity.this, bills));
                     }
                 });
     }

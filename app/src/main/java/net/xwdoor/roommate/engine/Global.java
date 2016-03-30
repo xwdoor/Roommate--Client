@@ -126,7 +126,13 @@ public class Global {
     }
 
     public static int getPayerId(String payerName) {
-        return Integer.parseInt(getPayerList().get(payerName));
+        int id;
+        try {
+            id = Integer.parseInt(getPayerList().get(payerName));
+        }catch (Exception e){
+            id = -1;
+        }
+        return id;
     }
 
     /**
