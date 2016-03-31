@@ -25,6 +25,9 @@ public class BillFragmentAdapter extends BaseAdapter {
     private List<BillInfo> mList;
     private List<BillInfo> copyList;
 
+    private int filterPayerId = -1;
+    private Boolean filterIsFinish = null;
+
     public BillFragmentAdapter(Context context, List<BillInfo> bills) {
         mContext = context;
         mList = bills;
@@ -33,22 +36,65 @@ public class BillFragmentAdapter extends BaseAdapter {
     }
 
     /**
+     * 设置筛选条件
+     *
+     * @param filterPayerId 付款人id，若显示全部，则为-1
+     */
+    public void setFilter(int filterPayerId) {
+        this.filterPayerId = filterPayerId;
+        filterBill();
+    }
+
+    /**
+     * 设置筛选条件
+     *
+     * @param filterIsFinish 是否已结算，若显示全部，则为null
+     */
+    public void setFilter(Boolean filterIsFinish) {
+        this.filterIsFinish = filterIsFinish;
+        filterBill();
+    }
+
+    public void clearFilter() {
+        this.filterPayerId = -1;
+        this.filterIsFinish = null;
+        filterBill();
+    }
+
+    /**
      * 筛选账单
      *
-     * @param payerId 付款人id，若筛选全部，付款人id为-1或null
+     * @param payerId  付款人id，若显示全部，则为-1
+     * @param isfinish 是否结算，若显示全部，则为null
      */
-    public void filterBill(int payerId) {
+    public void filterBill(int payerId, Boolean isfinish) {
+        this.filterPayerId = payerId;
+        this.filterIsFinish = isfinish;
+        filterBill();
+    }
 
+    /**
+     * 筛选账单
+     */
+    private void filterBill() {
         mList.clear();
-        if (payerId == -1) {//显示全部
-            mList.addAll(copyList);
-        } else if (payerId >= 0) {//显示某付款人id的账单
-            for (BillInfo billInfo : copyList) {
-                if (billInfo.payerId == payerId) {
+        for (BillInfo billInfo : copyList) {
+            if (filterPayerId == -1 || billInfo.payerId == filterPayerId) {//显示全部付款人或某付款人id的账单
+                if (filterIsFinish == null || billInfo.isFinish == filterIsFinish) {//判断是否结算或显示全部
                     mList.add(billInfo);
                 }
             }
         }
+
+//        if (filterPayerId == -1) {//显示全部付款人
+//            mList.addAll(copyList);
+//        } else if (filterPayerId >= 0) {//显示某付款人id的账单
+//            for (BillInfo billInfo : copyList) {
+//                if (billInfo.payerId == filterPayerId) {
+//                    mList.add(billInfo);
+//                }
+//            }
+//        }
         notifyDataSetChanged();
     }
 
@@ -69,16 +115,31 @@ public class BillFragmentAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = View.inflate(mContext, R.layout.item_fragment_bill, null);
-        TextView tvMoney = (TextView) view.findViewById(R.id.tv_money);
-        TextView tvDate = (TextView) view.findViewById(R.id.tv_date);
-        TextView tvType = (TextView) view.findViewById(R.id.tv_type);
-        TextView tvPayerName = (TextView) view.findViewById(R.id.tv_payerName);
+        ViewHolder holder;
+        if (convertView == null) {
+            convertView = View.inflate(mContext, R.layout.item_fragment_bill, null);
+            holder = new ViewHolder();
+            holder.tvMoney = (TextView) convertView.findViewById(R.id.tv_money);
+            holder.tvDate = (TextView) convertView.findViewById(R.id.tv_date);
+            holder.tvType = (TextView) convertView.findViewById(R.id.tv_type);
+            holder.tvPayerName = (TextView) convertView.findViewById(R.id.tv_payerName);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+
         BillInfo info = getItem(position);
-        tvMoney.setText("￥" + info.money);
-        tvDate.setText(info.date);
-        tvType.setText(Global.getBillType(info.billType));
-        tvPayerName.setText("(" + Global.getPayerName(info.payerId) + ")");
-        return view;
+        holder.tvMoney.setText("￥" + info.money);
+        holder.tvDate.setText(info.date);
+        holder.tvType.setText(Global.getBillType(info.billType));
+        holder.tvPayerName.setText("(" + Global.getPayerName(info.payerId) + ")");
+        return convertView;
+    }
+
+    static class ViewHolder {
+        TextView tvMoney;
+        TextView tvDate;
+        TextView tvType;
+        TextView tvPayerName;
     }
 }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -84,23 +85,28 @@ public class AddBillActivity extends BaseActivity {
 
         if (isUpdateBill) {
             etMoney.setText(mBillInfo.money + "");
-            tvPayer.setText(Global.getPayerName(mPayerId));
             etDesc.setText(mBillInfo.desc);
             btnAddBill.setVisibility(View.GONE);
             btnDelete.setVisibility(View.VISIBLE);
         }
+        //不管是添加还是编辑账单，都需要有付款人
+        tvPayer.setText(Global.getPayerName(mPayerId));
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveBill();
+                if(checkMoney()) {
+                    saveBill();
+                }
             }
         });
 
         btnAddBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveAddBill();
+                if(checkMoney()) {
+                    saveAddBill();
+                }
             }
         });
 
@@ -123,6 +129,21 @@ public class AddBillActivity extends BaseActivity {
                 mBillType = checkedId;
             }
         });
+    }
+
+    @Override
+    protected void loadData() {
+//        Global.getPayerName(mPayerId);
+        initBillType(Global.sBillType);
+    }
+
+    /** 检测金额是否为空 */
+    private boolean checkMoney(){
+        if(TextUtils.isEmpty(etMoney.getText())){
+            showToast("请输入金额");
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -150,10 +171,9 @@ public class AddBillActivity extends BaseActivity {
      */
     private void saveAddBill() {
         ArrayList<RequestParameter> params = getBillInfoParam();
-//        setResult(MainActivity.RESULT_CODE_SAVE_ADD);
-//        showLog("", "saveAddBill");
         //添加账单
         BillDao.getInstance(this).addBill(getBillInfo());
+
         RemoteService.getInstance().invoke(this, RemoteService.API_KEY_SAVE_BILL,
                 params, null);
     }
@@ -220,12 +240,6 @@ public class AddBillActivity extends BaseActivity {
         params.add(new RequestParameter("desc", etDesc.getText().toString()));
         params.add(new RequestParameter("payerId", mPayerId + ""));
         return params;
-    }
-
-    @Override
-    protected void loadData() {
-        Global.getPayerName(mPayerId);
-        initBillType(Global.sBillType);
     }
 
     /**
