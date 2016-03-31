@@ -72,7 +72,7 @@ public class BillDao {
      */
     public ArrayList<BillInfo> getBills() {
         SQLiteDatabase database = mBillOpenHelper.getReadableDatabase();
-        Cursor cursor = database.query(BillOpenHelper.TABLE_BILL, null, null, null, null, null, null);
+        Cursor cursor = database.query(BillOpenHelper.TABLE_BILL, null, null, null, null, null, "date desc");
 
         ArrayList<BillInfo> billInfos = new ArrayList<>();
         if (cursor != null) {
@@ -97,7 +97,7 @@ public class BillDao {
      */
     public ArrayList<BillInfo> getUserBill(int id) {
         SQLiteDatabase database = mBillOpenHelper.getReadableDatabase();
-        Cursor cursor = database.query(BillOpenHelper.TABLE_BILL, null, BillOpenHelper.COLUMN_PAYER_ID + "=?", new String[]{id+""}, null, null, null);
+        Cursor cursor = database.query(BillOpenHelper.TABLE_BILL, null, BillOpenHelper.COLUMN_PAYER_ID + "=?", new String[]{id+""}, null, null, "date desc");
 
         ArrayList<BillInfo> billInfos = new ArrayList<>();
         if (cursor != null) {

@@ -34,14 +34,14 @@ public class BillInfo implements Serializable {
     public float money;
     /** 付款人 */
     public int payerId;
+    /** 记录者 */
+    public int recordId;
     /** 账单类型 */
     public int billType;
     /** 是否已结算 */
     public boolean isFinish;
     /** 日期 */
     public String date;
-    /** 是否已结算 */
-    public boolean isFinish;
     /** 描述 */
     public String desc;
 

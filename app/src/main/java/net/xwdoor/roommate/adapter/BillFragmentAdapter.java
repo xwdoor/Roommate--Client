@@ -131,6 +131,11 @@ public class BillFragmentAdapter extends BaseAdapter {
         BillInfo info = getItem(position);
         holder.tvMoney.setText("￥" + info.money);
         holder.tvDate.setText(info.date);
+        if (position > 0) {
+            if (getItem(position - 1).date.equals(info.date)) {
+                holder.tvDate.setVisibility(View.INVISIBLE);
+            }
+        }
         holder.tvType.setText(Global.getBillType(info.billType));
         holder.tvPayerName.setText("(" + Global.getPayerName(info.payerId) + ")");
         return convertView;
