@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * 筛选菜单适配器
- * <p/>
+ *
  * Created by XWdoor on 2016/3/30 030 16:17.
  * 博客：http://blog.csdn.net/xwdoor
  */

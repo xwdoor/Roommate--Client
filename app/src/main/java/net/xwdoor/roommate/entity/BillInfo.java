@@ -36,7 +36,8 @@ public class BillInfo implements Serializable {
     public int payerId;
     /** 账单类型 */
     public int billType;
-//    private String billDesc;
+    /** 是否已结算 */
+    public boolean isFinish;
     /** 日期 */
     public String date;
     /** 描述 */

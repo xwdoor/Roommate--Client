@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * 账单列表界面
- *
+ * <p/>
  * Created by XWdoor on 2016/3/12.
  * 博客：http://blog.csdn.net/xwdoor
  */
@@ -43,7 +43,7 @@ public class BillFragment extends BaseFragment {
         ddMenu = (DropDownMenu) view.findViewById(R.id.ddm_dropDownMenu);
 
         //筛选条目
-        mHeader = new String[]{"付款人","日期","价格"};
+        mHeader = new String[]{"付款人", "结算", "日期"};
         mPayers = new ArrayList<>();
 
         //付款人筛选菜单
@@ -54,21 +54,25 @@ public class BillFragment extends BaseFragment {
         final ListDropDownAdapter payerAdapter = new ListDropDownAdapter(mActivity, mPayers);
         lvPayer.setAdapter(payerAdapter);
 
+        //结算筛选菜单
+        ListView lvFinish = new ListView(mActivity);
+        lvFinish.setDividerHeight(0);
+        final String[] finish = new String[]{"是否结算", "已结算", "未结算"};
+        final ListDropDownAdapter finishAdapter = new ListDropDownAdapter(mActivity, Arrays.asList(finish));
+        lvFinish.setAdapter(finishAdapter);
+
         //日期筛选菜单
         ListView lvDate = new ListView(mActivity);
         lvDate.setDividerHeight(0);
 
-        //价格筛选菜单
-        ListView lvPrice = new ListView(mActivity);
-        lvPrice.setDividerHeight(0);
-
+        //初始化筛选菜单
         ArrayList<View> filterViews = new ArrayList<>();
         filterViews.add(lvPayer);
+        filterViews.add(lvFinish);
         filterViews.add(lvDate);
-        filterViews.add(lvPrice);
 
         lvList = new ListView(mActivity);
-        ddMenu.setDropDownMenu(Arrays.asList(mHeader),filterViews,lvList);
+        ddMenu.setDropDownMenu(Arrays.asList(mHeader), filterViews, lvList);
 
         lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -78,12 +82,24 @@ public class BillFragment extends BaseFragment {
             }
         });
 
+        //付款人筛选
         lvPayer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 payerAdapter.setCheckItem(position);
                 ddMenu.setTabText(position == 0 ? mHeader[0] : mPayers.get(position));
-                mBillAdapter.filterBill(Global.getPayerId(mPayers.get(position)));
+                mBillAdapter.setFilter(Global.getPayerId(mPayers.get(position)));
+                ddMenu.closeMenu();
+            }
+        });
+
+        //结算筛选
+        lvFinish.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                finishAdapter.setCheckItem(position);
+                ddMenu.setTabText(position == 0 ? mHeader[1] : finish[position]);
+                mBillAdapter.setFilter(position == 0 ? null : (position == 1));
                 ddMenu.closeMenu();
             }
         });
@@ -120,7 +136,7 @@ public class BillFragment extends BaseFragment {
 
     public void updateBill(BillInfo billInfo) {
         for (BillInfo info : mBills) {
-            if(info.id == billInfo.id){
+            if (info.id == billInfo.id) {
                 info.date = billInfo.date;
                 info.billType = billInfo.billType;
                 info.money = billInfo.money;
@@ -135,7 +151,7 @@ public class BillFragment extends BaseFragment {
 
     public void deleteBill(BillInfo billInfo) {
         for (BillInfo info : mBills) {
-            if(info.id == billInfo.id){
+            if (info.id == billInfo.id) {
                 mBills.remove(info);
                 break;
             }
