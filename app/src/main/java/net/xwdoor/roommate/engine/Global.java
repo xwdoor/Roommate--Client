@@ -66,9 +66,6 @@ public class Global {
                     }
                 });
 
-        me = new User("肖威","");
-        me.setId(0);
-        me.setRealName("肖威");
     }
 
     public static String getBillType(int typeId) {

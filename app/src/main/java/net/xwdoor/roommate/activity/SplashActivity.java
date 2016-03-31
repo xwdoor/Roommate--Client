@@ -9,6 +9,7 @@ import net.xwdoor.roommate.R;
 import net.xwdoor.roommate.base.BaseActivity;
 import net.xwdoor.roommate.engine.Global;
 import net.xwdoor.roommate.engine.RemoteService;
+import net.xwdoor.roommate.engine.User;
 import net.xwdoor.roommate.net.RequestParameter;
 
 import java.util.ArrayList;
@@ -34,11 +35,6 @@ public class SplashActivity extends BaseActivity {
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
                 ArrayList<RequestParameter> params = new ArrayList<RequestParameter>();
                 params.add(new RequestParameter("userName", "xiaowei"));
                 params.add(new RequestParameter("password", "xiaowei"));
@@ -46,6 +42,7 @@ public class SplashActivity extends BaseActivity {
                     @Override
                     public void onSuccess(String content) {
                         showLog("登录成功", content);
+                        Global.me = gson.fromJson(content, User.class);
                         MainActivity.startAct(SplashActivity.this);
                         finish();
                     }
@@ -57,6 +54,11 @@ public class SplashActivity extends BaseActivity {
                         finish();
                     }
                 });
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
             }
 
             @Override

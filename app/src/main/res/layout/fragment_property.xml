@@ -1,86 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#f00"
-        android:gravity="center"
-        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_head_portrait"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:src="@mipmap/ic_default_persons" />
-
-        <TextView
-            android:id="@+id/tv_moth_bill"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="21,388"
-            android:textColor="@android:color/white"
-            android:textSize="23sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="总支出"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tv_all_bill"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1,222"
-                    android:textColor="@android:color/white"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="未结算"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tv_not_bill"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1,222"
-                    android:textColor="@android:color/white"
-                    android:textSize="15sp" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_add_bill"
@@ -92,9 +15,27 @@
         android:textColor="@android:color/holo_red_light"
         android:textSize="18sp" />
 
-    <!--<TextView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="1px"-->
-    <!--android:background="@android:color/darker_gray"/>-->
     <include layout="@layout/layout_line" />
-</LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@mipmap/zhibo_panel_circle2"/>
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:drawableTop="@mipmap/exer_icon_chinese"
+            android:textSize="22sp"
+            android:textColor="@android:color/holo_red_light"
+            android:text="记一笔"/>
+    </RelativeLayout>
+
+</RelativeLayout>
