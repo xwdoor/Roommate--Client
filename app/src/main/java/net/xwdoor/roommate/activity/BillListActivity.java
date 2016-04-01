@@ -49,6 +49,7 @@ public class BillListActivity extends BaseActivity {
 
         lvList = (ListView) findViewById(R.id.lv_list);
         findViewById(R.id.ddm_dropDownMenu).setVisibility(View.GONE);
+        lvList.setVisibility(View.VISIBLE);
     }
 
     @Override

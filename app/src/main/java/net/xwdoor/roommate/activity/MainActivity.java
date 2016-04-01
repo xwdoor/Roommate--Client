@@ -27,8 +27,8 @@ public class MainActivity extends BaseActivity {
     private static final String TAG_ME_FRAGMENT = "me_fragment";
     public static final int REQUEST_CODE_ADD_BILL = 1;
     public static final int REQUEST_CODE_UPDATE_BILL = 2;
-    public static final int RESULT_CODE_SAVE = 1;
-    public static final int RESULT_CODE_DELETE = 2;
+    public static final int RESULT_CODE_SAVE = 3;
+    public static final int RESULT_CODE_DELETE = 4;
 
     private PropertyFragment mPropertyFragment;
     private BillFragment mBillFragment;
@@ -54,7 +54,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
-        initFragment(mPropertyFragment, TAG_PROPERTY_FRAGMENT);
+
         RadioGroup rgGroup = (RadioGroup) findViewById(R.id.rg_group);
         rgGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -72,7 +72,7 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
-        rgGroup.check(R.id.rb_property);
+        initFragment(mPropertyFragment, TAG_PROPERTY_FRAGMENT);
     }
 
     /**
@@ -98,18 +98,17 @@ public class MainActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_CODE_ADD_BILL://添加账单
-                showLog("添加账单");
                 break;
             case REQUEST_CODE_UPDATE_BILL://修改账单
                 //点击保存才有效果，点击返回不做处理
                 if (data != null) {
                     BillInfo billInfo = (BillInfo) data.getSerializableExtra("billInfo");
                     if (resultCode == RESULT_CODE_SAVE) {
-                        showLog("修改账单");
+                        showLog("更新账单列表");
                         mBillFragment.updateBill(billInfo);
                     } else if (resultCode == RESULT_CODE_DELETE) {
                         //删除账单
-                        mBillFragment.deleteBill(billInfo);
+                        mBillFragment .deleteBill(billInfo);
                     }
                 }
                 break;

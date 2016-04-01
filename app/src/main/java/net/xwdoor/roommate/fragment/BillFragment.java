@@ -39,8 +39,9 @@ public class BillFragment extends BaseFragment {
 
     @Override
     protected View initView() {
+
         View view = View.inflate(mActivity, R.layout.fragment_bill, null);
-        lvList = (ListView) view.findViewById(R.id.lv_list);
+//        lvList = (ListView) view.findViewById(R.id.lv_list);
         ddMenu = (DropDownMenu) view.findViewById(R.id.ddm_dropDownMenu);
 
         //筛选条目
@@ -115,7 +116,7 @@ public class BillFragment extends BaseFragment {
             @Override
             public void onSuccess(String content) {
                 //获取ArrayList<BillInfo>的类型，用于json解析
-                BaseActivity.showJson(content);
+                BaseActivity.showLog("加载账单");
                 Type listType = new TypeToken<ArrayList<BillInfo>>() {
                 }.getType();
                 mBills = gson.fromJson(content, listType);
@@ -135,6 +136,7 @@ public class BillFragment extends BaseFragment {
         });
     }
 
+    /** 更新账单列表 */
     public void updateBill(BillInfo billInfo) {
         for (BillInfo info : mBills) {
             if (info.id == billInfo.id) {

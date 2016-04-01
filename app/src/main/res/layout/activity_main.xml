@@ -21,6 +21,7 @@
             android:id="@+id/rb_property"
             style="@style/RadioStyle"
             android:drawableTop="@drawable/selector_radio_property"
+            android:checked="true"
             android:text="记账" />
 
         <RadioButton

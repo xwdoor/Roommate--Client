@@ -31,6 +31,7 @@ public class MeFragment extends BaseFragment {
             public void onClick(View v) {
                 //显示账单列表
                 BillListActivity.startAct(mActivity);
+
             }
         });
 

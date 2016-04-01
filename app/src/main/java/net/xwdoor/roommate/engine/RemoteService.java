@@ -1,6 +1,7 @@
 package net.xwdoor.roommate.engine;
 
 import android.app.Activity;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 
@@ -53,12 +54,12 @@ public class RemoteService {
     }
 
     public static RemoteService getInstance() {
-        if (RemoteService.service == null) {
+        if (service == null) {
             synchronized (RemoteService.class) {
-                RemoteService.service = new RemoteService();
+                service = new RemoteService();
             }
         }
-        return RemoteService.service;
+        return service;
     }
 
 
@@ -74,7 +75,7 @@ public class RemoteService {
                        List<RequestParameter> params, RequestCallback callback) {
         //查询接口信息
         UrlData urlData = UrlConfigManager.findURL(activity, apiKey);
-        if (urlData != null && urlData.getMockClass() != null) {
+        if (urlData != null && !TextUtils.isEmpty(urlData.getMockClass())) {
             //访问模拟接口
             Response response = new Response();
             try {

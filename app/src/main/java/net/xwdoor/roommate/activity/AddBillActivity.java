@@ -202,13 +202,13 @@ public class AddBillActivity extends BaseActivity {
         } else {
             //添加账单
             BillDao.getInstance(this).addBill(getBillInfo());
+            //添加服务器账单
             RemoteService.getInstance().invoke(this, RemoteService.API_KEY_SAVE_BILL,
                     params, new ARequestCallback() {
                         @Override
                         public void onSuccess(String content) {
                             showToast("保存成功");
                             setResult(MainActivity.RESULT_CODE_SAVE);
-//                        Global.getMockBillInfos().add(getBillInfo());
                             finish();
                         }
                     });

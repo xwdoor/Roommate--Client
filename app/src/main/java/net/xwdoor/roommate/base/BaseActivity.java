@@ -2,14 +2,11 @@ package net.xwdoor.roommate.base;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
-import com.orhanobut.logger.Settings;
 
-import net.xwdoor.roommate.BuildConfig;
 import net.xwdoor.roommate.net.RequestCallback;
 
 /**
@@ -43,15 +40,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         gson = new Gson();
-
-        //初始化日志系统
-        Logger.initialize(
-                Settings.getInstance()
-                        .isShowMethodLink(true)
-                        .isShowThreadInfo(false)
-                        .setMethodOffset(1)
-                        .setLogPriority(BuildConfig.DEBUG ? Log.VERBOSE : Log.ASSERT)
-        );
 
         initVariables();
         initViews(savedInstanceState);
