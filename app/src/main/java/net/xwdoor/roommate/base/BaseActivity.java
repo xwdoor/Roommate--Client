@@ -6,7 +6,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.Settings;
 
+import net.xwdoor.roommate.BuildConfig;
 import net.xwdoor.roommate.net.RequestCallback;
 
 /**
@@ -14,11 +17,22 @@ import net.xwdoor.roommate.net.RequestCallback;
  * 博客：http://blog.csdn.net/xwdoor
  */
 public abstract class BaseActivity extends AppCompatActivity {
-    public static final String TAG_LOG = "123123";
+    public static final String TAG_LOG = "//";
     protected Gson gson;
 
-    public void showLog(String title, String content) {
-        Log.i(TAG_LOG, title + "-->" + content);
+    /** 打印日志 */
+    public static void showLog(String message, Object... args){
+        Logger.i(message, args);
+    }
+
+    /** 打印Json日志 */
+    public static void showJson(String json){
+        Logger.json(json);
+    }
+
+    /** 打印数组、列表集合、实体类 */
+    public static void showObject(Object object){
+        Logger.object(object);
     }
 
     public void showToast(String msg){
@@ -29,6 +43,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         gson = new Gson();
+
+        //初始化日志系统
+        Logger.initialize(
+                Settings.getInstance()
+                        .isShowMethodLink(true)
+                        .isShowThreadInfo(false)
+                        .setMethodOffset(1)
+                        .setLogPriority(BuildConfig.DEBUG ? Log.VERBOSE : Log.ASSERT)
+        );
 
         initVariables();
         initViews(savedInstanceState);
@@ -54,7 +77,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         @Override
         public void onFailure(String errorMessage) {
-            showLog("请求失败",errorMessage);
+            showLog("请求失败：%s",errorMessage);
             showToast(errorMessage);
         }
 

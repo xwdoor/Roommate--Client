@@ -10,6 +10,7 @@ import net.xwdoor.roommate.R;
 import net.xwdoor.roommate.activity.AddBillActivity;
 import net.xwdoor.roommate.adapter.BillFragmentAdapter;
 import net.xwdoor.roommate.adapter.ListDropDownAdapter;
+import net.xwdoor.roommate.base.BaseActivity;
 import net.xwdoor.roommate.engine.Global;
 import net.xwdoor.roommate.engine.RemoteService;
 import net.xwdoor.roommate.entity.BillInfo;
@@ -114,7 +115,7 @@ public class BillFragment extends BaseFragment {
             @Override
             public void onSuccess(String content) {
                 //获取ArrayList<BillInfo>的类型，用于json解析
-                mActivity.showLog("content", content);
+                BaseActivity.showJson(content);
                 Type listType = new TypeToken<ArrayList<BillInfo>>() {
                 }.getType();
                 mBills = gson.fromJson(content, listType);

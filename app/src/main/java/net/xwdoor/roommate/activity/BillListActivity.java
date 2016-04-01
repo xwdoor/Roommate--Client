@@ -59,7 +59,7 @@ public class BillListActivity extends BaseActivity {
                 params, new ARequestCallback() {
                     @Override
                     public void onSuccess(String content) {
-                        showLog("BillListActivity", content);
+                        showJson(content);
                         Type listType = new TypeToken<ArrayList<BillInfo>>() {
                         }.getType();
 

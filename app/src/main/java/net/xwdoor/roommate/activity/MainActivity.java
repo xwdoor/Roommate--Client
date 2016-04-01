@@ -98,14 +98,14 @@ public class MainActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_CODE_ADD_BILL://添加账单
-                showLog("", "添加账单");
+                showLog("添加账单");
                 break;
             case REQUEST_CODE_UPDATE_BILL://修改账单
                 //点击保存才有效果，点击返回不做处理
                 if (data != null) {
                     BillInfo billInfo = (BillInfo) data.getSerializableExtra("billInfo");
                     if (resultCode == RESULT_CODE_SAVE) {
-                        showLog("", "修改账单");
+                        showLog("修改账单");
                         mBillFragment.updateBill(billInfo);
                     } else if (resultCode == RESULT_CODE_DELETE) {
                         //删除账单

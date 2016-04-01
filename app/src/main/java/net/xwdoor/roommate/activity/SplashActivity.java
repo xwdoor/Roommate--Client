@@ -41,7 +41,8 @@ public class SplashActivity extends BaseActivity {
                 RemoteService.getInstance().invoke(SplashActivity.this, RemoteService.API_KEY_LOGIN, params, new ARequestCallback() {
                     @Override
                     public void onSuccess(String content) {
-                        showLog("登录成功", content);
+                        showLog("登录成功");
+                        showJson(content);
                         Global.me = gson.fromJson(content, User.class);
                         MainActivity.startAct(SplashActivity.this);
                         finish();
