@@ -47,11 +47,6 @@ public class SplashActivity extends BaseActivity {
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(final Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
                 ArrayList<RequestParameter> params = new ArrayList<RequestParameter>();
                 params.add(new RequestParameter("userName", "xiaowei"));
                 params.add(new RequestParameter("password", "xiaowei"));
@@ -67,12 +62,16 @@ public class SplashActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(String errorMessage) {
-                        super.onFailure(errorMessage);
-                        showLog("登录成功");
+                        showLog("自动登录失败");
                         LoginActivity.startAct(SplashActivity.this);
                         finish();
                     }
                 });
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
             }
 
             @Override
