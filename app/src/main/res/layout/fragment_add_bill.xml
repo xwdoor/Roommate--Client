@@ -29,10 +29,11 @@
             android:src="@mipmap/zhibo_panel_circle2"/>
 
         <TextView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:drawableTop="@mipmap/exer_icon_chinese"
+            android:drawableTop="@mipmap/add_bill_small"
+            android:gravity="center"
             android:textSize="22sp"
             android:textColor="@android:color/holo_red_light"
             android:text="记一笔"/>

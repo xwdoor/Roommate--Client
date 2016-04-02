@@ -194,6 +194,7 @@ public class AddBillActivity extends BaseActivity {
                         @Override
                         public void onSuccess(String content) {
                             showToast("保存成功");
+                            showJson(content);
                             setResult(MainActivity.RESULT_CODE_SAVE, new Intent().putExtra("billInfo", mBillInfo));
                             finish();
                         }
@@ -239,6 +240,11 @@ public class AddBillActivity extends BaseActivity {
         params.add(new RequestParameter("date", new Date(System.currentTimeMillis()).toString()));
         params.add(new RequestParameter("desc", etDesc.getText().toString()));
         params.add(new RequestParameter("payerId", mPayerId + ""));
+
+        params.add(new RequestParameter("record_user_id", mPayerId + ""));
+        params.add(new RequestParameter("spend_user_id", mPayerId + ""));
+        params.add(new RequestParameter("type_id", mBillType + ""));
+        params.add(new RequestParameter("desc", etDesc.getText().toString()));
         return params;
     }
 

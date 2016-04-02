@@ -11,7 +11,7 @@ import net.xwdoor.roommate.activity.AddBillActivity;
  * Created by XWdoor on 2016/3/12.
  * 博客：http://blog.csdn.net/xwdoor
  */
-public class PropertyFragment extends BaseFragment {
+public class AddBillFragment extends BaseFragment {
     private TextView tvAllBill;
     private TextView tvMothBill;
     private TextView tvNotBill;
@@ -20,7 +20,7 @@ public class PropertyFragment extends BaseFragment {
 
     @Override
     protected View initView() {
-        View view = View.inflate(mActivity, R.layout.fragment_property, null);
+        View view = View.inflate(mActivity, R.layout.fragment_add_bill, null);
 
         tvAllBill = (TextView) view.findViewById(R.id.tv_all_bill);
         tvMothBill = (TextView) view.findViewById(R.id.tv_moth_bill);

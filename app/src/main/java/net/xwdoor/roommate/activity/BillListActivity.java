@@ -45,7 +45,7 @@ public class BillListActivity extends BaseActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-        setContentView(R.layout.fragment_bill);
+        setContentView(R.layout.fragment_bill_list);
 
         lvList = (ListView) findViewById(R.id.lv_list);
         findViewById(R.id.ddm_dropDownMenu).setVisibility(View.GONE);

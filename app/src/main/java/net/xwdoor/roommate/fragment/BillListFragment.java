@@ -28,7 +28,7 @@ import java.util.List;
  * Created by XWdoor on 2016/3/12.
  * 博客：http://blog.csdn.net/xwdoor
  */
-public class BillFragment extends BaseFragment {
+public class BillListFragment extends BaseFragment {
 
     private ListView lvList;
     private BillFragmentAdapter mBillAdapter;
@@ -40,7 +40,7 @@ public class BillFragment extends BaseFragment {
     @Override
     protected View initView() {
 
-        View view = View.inflate(mActivity, R.layout.fragment_bill, null);
+        View view = View.inflate(mActivity, R.layout.fragment_bill_list, null);
 //        lvList = (ListView) view.findViewById(R.id.lv_list);
         ddMenu = (DropDownMenu) view.findViewById(R.id.ddm_dropDownMenu);
 

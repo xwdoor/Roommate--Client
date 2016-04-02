@@ -12,9 +12,9 @@ import net.xwdoor.roommate.R;
 import net.xwdoor.roommate.base.BaseActivity;
 import net.xwdoor.roommate.entity.BillInfo;
 import net.xwdoor.roommate.fragment.BaseFragment;
-import net.xwdoor.roommate.fragment.BillFragment;
+import net.xwdoor.roommate.fragment.BillListFragment;
 import net.xwdoor.roommate.fragment.MeFragment;
-import net.xwdoor.roommate.fragment.PropertyFragment;
+import net.xwdoor.roommate.fragment.AddBillFragment;
 
 /**
  * Created by XWdoor on 2016/3/12.
@@ -30,8 +30,8 @@ public class MainActivity extends BaseActivity {
     public static final int RESULT_CODE_SAVE = 3;
     public static final int RESULT_CODE_DELETE = 4;
 
-    private PropertyFragment mPropertyFragment;
-    private BillFragment mBillFragment;
+    private AddBillFragment mAddBillFragment;
+    private BillListFragment mBillListFragment;
     private MeFragment mMeFragment;
 
     public static void startAct(Context context) {
@@ -46,8 +46,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initVariables() {
-        mPropertyFragment = new PropertyFragment();
-        mBillFragment = new BillFragment();
+        mAddBillFragment = new AddBillFragment();
+        mBillListFragment = new BillListFragment();
         mMeFragment = new MeFragment();
     }
 
@@ -61,10 +61,10 @@ public class MainActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_property://概况
-                        initFragment(mPropertyFragment, TAG_PROPERTY_FRAGMENT);
+                        initFragment(mAddBillFragment, TAG_PROPERTY_FRAGMENT);
                         break;
                     case R.id.rb_bill://账单
-                        initFragment(mBillFragment, TAG_BILL_FRAGMENT);
+                        initFragment(mBillListFragment, TAG_BILL_FRAGMENT);
                         break;
                     case R.id.rb_me://我
                         initFragment(mMeFragment, TAG_ME_FRAGMENT);
@@ -72,7 +72,7 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
-        initFragment(mPropertyFragment, TAG_PROPERTY_FRAGMENT);
+        initFragment(mAddBillFragment, TAG_PROPERTY_FRAGMENT);
     }
 
     /**
@@ -105,10 +105,10 @@ public class MainActivity extends BaseActivity {
                     BillInfo billInfo = (BillInfo) data.getSerializableExtra("billInfo");
                     if (resultCode == RESULT_CODE_SAVE) {
                         showLog("更新账单列表");
-                        mBillFragment.updateBill(billInfo);
+                        mBillListFragment.updateBill(billInfo);
                     } else if (resultCode == RESULT_CODE_DELETE) {
                         //删除账单
-                        mBillFragment .deleteBill(billInfo);
+                        mBillListFragment.deleteBill(billInfo);
                     }
                 }
                 break;
