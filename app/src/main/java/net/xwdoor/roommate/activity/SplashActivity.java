@@ -50,7 +50,7 @@ public class SplashActivity extends BaseActivity {
                 ArrayList<RequestParameter> params = new ArrayList<RequestParameter>();
                 params.add(new RequestParameter("userName", "xiaowei"));
                 params.add(new RequestParameter("password", "xiaowei"));
-                RemoteService.getInstance().invoke(SplashActivity.this, RemoteService.API_KEY_LOGIN, params, new ARequestCallback() {
+                RemoteService.getInstance(SplashActivity.this).invoke(RemoteService.API_KEY_LOGIN, params, new ARequestCallback() {
                     @Override
                     public void onSuccess(String content) {
                         showLog("登录成功");

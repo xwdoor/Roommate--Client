@@ -24,7 +24,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile files('libs/gson-2.5.jar')
-    compile files('libs/okhttp-3.2.0.jar')
     compile project(':logger')
-    compile files('libs/okio-1.6.0.jar')
+    compile files('libs/volley.jar')
 }

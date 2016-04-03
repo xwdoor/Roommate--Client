@@ -3,6 +3,12 @@ package net.xwdoor.roommate.engine;
 import android.app.Activity;
 import android.text.TextUtils;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
 import net.xwdoor.roommate.mockdata.MockService;
@@ -12,15 +18,9 @@ import net.xwdoor.roommate.net.Response;
 import net.xwdoor.roommate.net.UrlConfigManager;
 import net.xwdoor.roommate.net.UrlData;
 
-import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
+import java.util.Map;
 
 /**
  * 远程服务器访问
@@ -42,21 +42,21 @@ public class RemoteService {
     public static final String API_KEY_GET_BILL_TYPE = "getBillType";
     public static final String API_KEY_GET_ROOMMATES = "getRoommates";
 
-    private final OkHttpClient mHttpClient;
     private final Gson gson;
-    private Response mResponse;
-
     private static RemoteService service = null;
+    private final Activity mActivity;
+    private final RequestQueue mQueue;
 
-    private RemoteService() {
-        mHttpClient = new OkHttpClient();
+    private RemoteService(Activity activity) {
         gson = new Gson();
+        this.mActivity = activity;
+        mQueue = Volley.newRequestQueue(mActivity);
     }
 
-    public static RemoteService getInstance() {
+    public static RemoteService getInstance(Activity activity) {
         if (service == null) {
             synchronized (RemoteService.class) {
-                service = new RemoteService();
+                service = new RemoteService(activity);
             }
         }
         return service;
@@ -66,22 +66,21 @@ public class RemoteService {
     /**
      * 调用网络请求
      *
-     * @param activity
      * @param apiKey   接口名称
      * @param params   请求参数
      * @param callback 回调方法/接口
      */
-    public void invoke(Activity activity, String apiKey,
+    public void invoke(String apiKey,
                        List<RequestParameter> params, RequestCallback callback) {
         //查询接口信息
-        UrlData urlData = UrlConfigManager.findURL(activity, apiKey);
+        UrlData urlData = UrlConfigManager.findURL(mActivity, apiKey);
         if (urlData != null && !TextUtils.isEmpty(urlData.getMockClass())) {
             //访问模拟接口
             Response response = new Response();
             try {
                 //通过 url.xml 文件中的记录进行反射
                 MockService mockService = (MockService) Class.forName(urlData.getMockClass()).newInstance();
-                response = gson.fromJson(mockService.getJsonData(activity), Response.class);
+                response = gson.fromJson(mockService.getJsonData(mActivity), Response.class);
 
             } catch (InstantiationException e) {
                 response.setCode(-1);
@@ -102,8 +101,8 @@ public class RemoteService {
             }
         } else {
             //访问真实接口
-            Request request = createRequest(urlData, params);
-            execRequest(request, callback);
+            StringRequest request = createRequest(urlData, params, callback);
+            mQueue.add(request);
         }
 
     }
@@ -111,12 +110,13 @@ public class RemoteService {
     /**
      * 创建请求
      *
-     * @param urlData 接口信息
-     * @param params  请求参数
-     * @return
+     * @param urlData  接口信息
+     * @param params   请求参数
+     * @param callback 回调接口
+     * @return StringRequest请求对象
      */
-    private Request createRequest(UrlData urlData, List<RequestParameter> params) {
-        Request request = null;
+    private StringRequest createRequest(UrlData urlData, final List<RequestParameter> params, final RequestCallback callback) {
+        StringRequest request = null;
         if (REQUEST_GET.equals(urlData.getNetType())) {
             String url = urlData.getUrl();
             if (params != null && params.size() > 0) {
@@ -131,52 +131,58 @@ public class RemoteService {
                 }
                 url += "?" + stringBuilder.toString();
             }
-            request = new Request.Builder()
-                    .url(url)
-                    .build();
+            RequestListener listener = new RequestListener(callback);
+            request = new StringRequest(url, listener, listener);
 
         } else if (REQUEST_POST.equals(urlData.getNetType())) {
-            //表单数据
-            FormBody.Builder builder = new FormBody.Builder();
-            for (RequestParameter param : params) {
-                builder.add(param.getName(), param.getValue());//添加键值对数据
-            }
-            RequestBody formBody = builder.build();
-            //构建请求
-            request = new Request.Builder()
-                    .url(urlData.getUrl())
-                    .post(formBody)
-                    .build();
+            RequestListener listener = new RequestListener(callback);
+            request = new StringRequest(Request.Method.POST, urlData.getUrl(), listener, listener) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> map = null;
+                    if (params != null && params.size() > 0) {
+                        map = new HashMap<>();
+                        //添加请求参数
+                        for (RequestParameter param : params) {
+                            map.put(param.getName(), param.getValue());
+                        }
+                    }
+                    return map;
+                }
+            };
         }
 
         return request;
-
     }
 
     /**
-     * 执行网络请求
-     *
-     * @param request  网络请求对象
-     * @param callBack 回调接口
+     * 对回调进行简单封装
      */
-    private void execRequest(Request request, final RequestCallback callBack) {
-//        mResponse = new Response();
-        mHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-//                mResponse.setCode(-4);
-//                mResponse.setError(e.getMessage());
-//                callBack.onFailure(gson.toJson(mResponse));
-                callBack.onFailure(e.getMessage());
-            }
+    class RequestListener implements com.android.volley.Response.Listener<String>, com.android.volley.Response.ErrorListener {
 
-            @Override
-            public void onResponse(Call call, okhttp3.Response response) throws IOException {
-//                mResponse.setCode(0);
-//                mResponse.setResult(response.body().string());
-//                callBack.onSuccess(gson.toJson(response));
-                callBack.onSuccess(response.body().string());
+        private final RequestCallback mCallBack;
+
+        public RequestListener(RequestCallback callback) {
+            this.mCallBack = callback;
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+            if (mCallBack != null) {
+                mCallBack.onFailure(volleyError.getMessage());
             }
-        });
+        }
+
+        @Override
+        public void onResponse(String s) {
+            if (mCallBack != null) {
+                Response response = gson.fromJson(s, Response.class);
+                if (response.hasError()) {
+                    mCallBack.onFailure(response.getError());
+                } else {
+                    mCallBack.onSuccess(response.getResult());
+                }
+            }
+        }
     }
 }

@@ -112,7 +112,7 @@ public class BillListFragment extends BaseFragment {
     @Override
     protected void initData() {
 
-        RemoteService.getInstance().invoke(mActivity, RemoteService.API_KEY_GET_ALL_BILLS, null, new RequestCallback() {
+        RemoteService.getInstance(mActivity).invoke(RemoteService.API_KEY_GET_ALL_BILLS, null, new RequestCallback() {
             @Override
             public void onSuccess(String content) {
                 //获取ArrayList<BillInfo>的类型，用于json解析

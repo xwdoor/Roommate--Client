@@ -12,9 +12,9 @@ public final class LogPrinter extends Timber.DebugTree {
 
     private static final int STACK_OFFSET = 8;
 
-    private static final String BOTTOM_BORDER = "//╚══════════════════════════════════════════════════════";
+    private static final String BOTTOM_BORDER = "///╚══════════════════════════════════════════════════════";
 
-    private static final String PREFIX_BORDER = "//║";
+    private static final String PREFIX_BORDER = "///║";
 
     /**
      * 因为如果设置了tag，那么会在timber中多走一个方法，方法栈会发生变化，造成不准确的情况。

@@ -23,7 +23,7 @@ public class Global {
     public static void init(BaseActivity activity) {
         final Gson gson = new Gson();
         //初始化所有用户
-        RemoteService.getInstance().invoke(activity, RemoteService.API_KEY_GET_ROOMMATES,
+        RemoteService.getInstance(activity).invoke(RemoteService.API_KEY_GET_ROOMMATES,
                 null, new RequestCallback() {
                     @Override
                     public void onSuccess(String content) {
@@ -45,7 +45,7 @@ public class Global {
                 });
 
         //获取账单类型
-        RemoteService.getInstance().invoke(activity, RemoteService.API_KEY_GET_BILL_TYPE,
+        RemoteService.getInstance(activity).invoke(RemoteService.API_KEY_GET_BILL_TYPE,
                 null, new RequestCallback() {
                     @Override
                     public void onSuccess(String content) {

@@ -155,7 +155,7 @@ public class AddBillActivity extends BaseActivity {
         params.add(new RequestParameter("id", billInfo.id + ""));
 
         BillDao.getInstance(this).deleteBill(billInfo.id);
-        RemoteService.getInstance().invoke(this, RemoteService.API_KEY_DELETE_BILL,
+        RemoteService.getInstance(this).invoke(RemoteService.API_KEY_DELETE_BILL,
                 params, new ARequestCallback() {
                     @Override
                     public void onSuccess(String content) {
@@ -174,7 +174,7 @@ public class AddBillActivity extends BaseActivity {
         //添加账单
         BillDao.getInstance(this).addBill(getBillInfo());
 
-        RemoteService.getInstance().invoke(this, RemoteService.API_KEY_SAVE_BILL,
+        RemoteService.getInstance(this).invoke(RemoteService.API_KEY_SAVE_BILL,
                 params, null);
     }
 
@@ -189,7 +189,7 @@ public class AddBillActivity extends BaseActivity {
             BillDao.getInstance(this).updateBill(mBillInfo);
 
             //更新服务器账单
-            RemoteService.getInstance().invoke(this, RemoteService.API_KEY_UPDATE_BILL,
+            RemoteService.getInstance(this).invoke(RemoteService.API_KEY_UPDATE_BILL,
                     params, new ARequestCallback() {
                         @Override
                         public void onSuccess(String content) {
@@ -204,7 +204,7 @@ public class AddBillActivity extends BaseActivity {
             //添加账单
             BillDao.getInstance(this).addBill(getBillInfo());
             //添加服务器账单
-            RemoteService.getInstance().invoke(this, RemoteService.API_KEY_SAVE_BILL,
+            RemoteService.getInstance(this).invoke(RemoteService.API_KEY_SAVE_BILL,
                     params, new ARequestCallback() {
                         @Override
                         public void onSuccess(String content) {

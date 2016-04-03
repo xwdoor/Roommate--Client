@@ -1,5 +1,14 @@
 # 更新进度
 
+## 2016.4.3
+
+- okHttp 异步请求不能更新 UI，改用谷歌的 Volley 开源网络库
+- RemoteService 增加构造参数：activity，invoke() 方法取消参数 activity。构造参数用于声明 Volley 请求等列队列的构造参数。
+
+## 2016.4.2
+
+- 添加 okHttp 依赖包，重命名文件
+
 ## 2016.4.1
 
 - 引入日志打印系统
