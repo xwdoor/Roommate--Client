@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * 账单列表界面
- * <p/>
+ * 
  * Created by XWdoor on 2016/3/12.
  * 博客：http://blog.csdn.net/xwdoor
  */
@@ -112,7 +112,7 @@ public class BillListFragment extends BaseFragment {
     @Override
     protected void initData() {
 
-        RemoteService.getInstance(mActivity).invoke(RemoteService.API_KEY_GET_ALL_BILLS, null, new RequestCallback() {
+        RemoteService.getInstance().invoke(RemoteService.API_KEY_GET_ALL_BILLS, mActivity, null, new RequestCallback() {
             @Override
             public void onSuccess(String content) {
                 //获取ArrayList<BillInfo>的类型，用于json解析

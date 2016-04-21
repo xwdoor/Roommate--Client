@@ -6,6 +6,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.RelativeLayout;
 
+import com.alibaba.fastjson.JSON;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.Settings;
 
@@ -48,21 +49,23 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onAnimationStart(final Animation animation) {
                 ArrayList<RequestParameter> params = new ArrayList<RequestParameter>();
-                params.add(new RequestParameter("userName", "xiaowei"));
+                params.add(new RequestParameter("loginName", "xiaowei"));
                 params.add(new RequestParameter("password", "xiaowei"));
-                RemoteService.getInstance(SplashActivity.this).invoke(RemoteService.API_KEY_LOGIN, params, new ARequestCallback() {
+                RemoteService.getInstance().invoke(RemoteService.API_KEY_LOGIN, SplashActivity.this,
+                        params, new ARequestCallback() {
                     @Override
                     public void onSuccess(String content) {
-                        showLog("登录成功");
+                        showLog(getString(R.string.login_success));
 //                        showJson(content);
-                        Global.me = gson.fromJson(content, User.class);
+//                        Global.me = gson.fromJson(content, User.class);
+                        Global.me = JSON.parseObject(content,User.class);
                         MainActivity.startAct(SplashActivity.this);
                         finish();
                     }
 
                     @Override
                     public void onFailure(String errorMessage) {
-                        showLog("自动登录失败");
+                        showLog("自动登录失败：%s",errorMessage);
                         LoginActivity.startAct(SplashActivity.this);
                         finish();
                     }

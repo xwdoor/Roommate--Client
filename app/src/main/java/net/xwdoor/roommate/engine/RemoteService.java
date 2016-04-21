@@ -1,6 +1,6 @@
 package net.xwdoor.roommate.engine;
 
-import android.app.Activity;
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.android.volley.AuthFailureError;
@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * 远程服务器访问
- * <p/>
+ *
  * Created by XWdoor on 2016/3/13.
  * 博客：http://blog.csdn.net/xwdoor
  */
@@ -44,19 +44,16 @@ public class RemoteService {
 
     private final Gson gson;
     private static RemoteService service = null;
-    private final Activity mActivity;
-    private final RequestQueue mQueue;
+    private RequestQueue mQueue;
 
-    private RemoteService(Activity activity) {
+    private RemoteService() {
         gson = new Gson();
-        this.mActivity = activity;
-        mQueue = Volley.newRequestQueue(mActivity);
     }
 
-    public static RemoteService getInstance(Activity activity) {
+    public static RemoteService getInstance() {
         if (service == null) {
             synchronized (RemoteService.class) {
-                service = new RemoteService(activity);
+                service = new RemoteService();
             }
         }
         return service;
@@ -70,17 +67,17 @@ public class RemoteService {
      * @param params   请求参数
      * @param callback 回调方法/接口
      */
-    public void invoke(String apiKey,
+    public void invoke(String apiKey, Context context,
                        List<RequestParameter> params, RequestCallback callback) {
         //查询接口信息
-        UrlData urlData = UrlConfigManager.findURL(mActivity, apiKey);
+        UrlData urlData = UrlConfigManager.findURL(context, apiKey);
         if (urlData != null && !TextUtils.isEmpty(urlData.getMockClass())) {
             //访问模拟接口
             Response response = new Response();
             try {
                 //通过 url.xml 文件中的记录进行反射
                 MockService mockService = (MockService) Class.forName(urlData.getMockClass()).newInstance();
-                response = gson.fromJson(mockService.getJsonData(mActivity), Response.class);
+                response = gson.fromJson(mockService.getJsonData(context), Response.class);
 
             } catch (InstantiationException e) {
                 response.setCode(-1);
@@ -102,6 +99,10 @@ public class RemoteService {
         } else {
             //访问真实接口
             StringRequest request = createRequest(urlData, params, callback);
+
+            if(mQueue == null){
+                mQueue = Volley.newRequestQueue(context);
+            }
             mQueue.add(request);
         }
 

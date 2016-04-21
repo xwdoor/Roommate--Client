@@ -26,4 +26,8 @@ dependencies {
     compile files('libs/gson-2.5.jar')
     compile project(':logger')
     compile files('libs/volley.jar')
+    //LeakCanary 内存泄漏检测
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 }
