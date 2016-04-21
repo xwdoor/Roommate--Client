@@ -24,7 +24,7 @@ public class AddBillFragment extends BaseFragment {
 
         tvAllBill = (TextView) view.findViewById(R.id.tv_all_bill);
         tvMothBill = (TextView) view.findViewById(R.id.tv_moth_bill);
-        tvNotBill = (TextView) view.findViewById(R.id.tv_not_bill);
+        tvNotBill = (TextView) view.findViewById(R.id.tv_not_finish_bill);
         tvAddBill = (TextView) view.findViewById(R.id.tv_add_bill);
         ivHead = (ImageView) view.findViewById(R.id.iv_head_portrait);
 

@@ -20,6 +20,7 @@ public class MockGetAllBills extends MockService {
         List<BillInfo> billInfos = BillDao.getInstance(context).getBills();
         Response response = getSuccessResponse();
         response.setResult(gson.toJson(billInfos));
+        BillDao.getInstance(context).getUnfinishedBill();
         return gson.toJson(response);
     }
 }

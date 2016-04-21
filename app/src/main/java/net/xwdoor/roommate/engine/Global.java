@@ -23,7 +23,7 @@ public class Global {
     public static void init(BaseActivity activity) {
         final Gson gson = new Gson();
         //初始化所有用户
-        RemoteService.getInstance().invoke(RemoteService.API_KEY_GET_ROOMMATES,activity,
+        RemoteService.getInstance().invoke(RemoteService.API_KEY_GET_ROOMMATES, activity,
                 null, new RequestCallback() {
                     @Override
                     public void onSuccess(String content) {
@@ -45,7 +45,7 @@ public class Global {
                 });
 
         //获取账单类型
-        RemoteService.getInstance().invoke(RemoteService.API_KEY_GET_BILL_TYPE,activity,
+        RemoteService.getInstance().invoke(RemoteService.API_KEY_GET_BILL_TYPE, activity,
                 null, new RequestCallback() {
                     @Override
                     public void onSuccess(String content) {
@@ -126,7 +126,7 @@ public class Global {
         int id;
         try {
             id = Integer.parseInt(getPayerList().get(payerName));
-        }catch (Exception e){
+        } catch (Exception e) {
             id = -1;
         }
         return id;
@@ -137,7 +137,7 @@ public class Global {
      */
     public static String[] getPayers() {
         String[] payers = new String[sUserList.size()];
-        for(int i = 0;i<sUserList.size();i++){
+        for (int i = 0; i < sUserList.size(); i++) {
             payers[i] = sUserList.get(i).getRealName();
         }
         return payers;

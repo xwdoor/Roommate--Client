@@ -27,8 +27,8 @@
     <Node
         Key="saveBill"
         NetType="post"
-        MockClass=""
-        Url="http://192.168.1.11:5000/bill/post"/>
+        MockClass="net.xwdoor.roommate.mockdata.MockSaveBillSuccess"
+        Url=""/>
 
     <Node
         Key="updateBill"
