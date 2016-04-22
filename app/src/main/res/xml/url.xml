@@ -25,6 +25,12 @@
         Url=""/>
 
     <Node
+        Key="getUnfinishBill"
+        NetType="get"
+        MockClass="net.xwdoor.roommate.mockdata.MockGetUnfinishBill"
+        Url=""/>
+
+    <Node
         Key="saveBill"
         NetType="post"
         MockClass="net.xwdoor.roommate.mockdata.MockSaveBillSuccess"

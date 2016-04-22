@@ -19,7 +19,7 @@ public class UserDao {
 
     private static UserDao sInstance = null;
 
-    private UserDao(Context context) {
+    public UserDao(Context context) {
         mDbHelper = new DbHelper(context);
     }
 

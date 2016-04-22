@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * 账单数据库查询，单例模式
- * <p>
+ * <p/>
  * Created by XWdoor on 2016/3/20.
  * 博客：http://blog.csdn.net/xwdoor
  */
@@ -21,7 +21,7 @@ public class BillDao {
 
     private static BillDao sInstance = null;
 
-    private BillDao(Context context) {
+    public BillDao(Context context) {
         mDbHelper = new DbHelper(context);
     }
 
@@ -111,6 +111,17 @@ public class BillDao {
         return billInfos;
     }
 
+    /**
+     * 结算所有账单
+     */
+    public void finishBills() {
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.TABLE_BILL_COLUMN_IS_FINISH, 1);
+
+        database.update(DbHelper.TABLE_BILL, values, DbHelper.TABLE_BILL_COLUMN_IS_FINISH + "=?", new String[]{"0"});
+    }
+
     private ArrayList<BillInfo> parseBills(Cursor cursor) {
         ArrayList<BillInfo> billInfos = new ArrayList<>();
         if (cursor != null) {
@@ -138,7 +149,7 @@ public class BillDao {
         values.put(DbHelper.TABLE_BILL_COLUMN_PAYER_ID, billInfo.payerId);
         values.put(DbHelper.TABLE_BILL_COLUMN_RECORD_ID, billInfo.recordId);
         values.put(DbHelper.TABLE_BILL_COLUMN_BILL_TYPE, billInfo.billType);
-        values.put(DbHelper.TABLE_BILL_COLUMN_IS_FINISH, billInfo.isFinish ? "1" : "0");
+        values.put(DbHelper.TABLE_BILL_COLUMN_IS_FINISH, billInfo.isFinish ? 1 : 0);
         values.put(DbHelper.TABLE_BILL_COLUMN_DATE, billInfo.date);
         values.put(DbHelper.TABLE_BILL_COLUMN_DESC, billInfo.desc);
         return values;

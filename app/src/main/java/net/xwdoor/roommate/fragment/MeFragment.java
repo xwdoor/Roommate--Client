@@ -5,6 +5,7 @@ import android.widget.Button;
 
 import net.xwdoor.roommate.R;
 import net.xwdoor.roommate.activity.BillListActivity;
+import net.xwdoor.roommate.activity.FinishBillActivity;
 
 /**
  * Created by XWdoor on 2016/3/12.
@@ -18,6 +19,7 @@ public class MeFragment extends BaseFragment {
 
         Button btnUserList = (Button) view.findViewById(R.id.btn_user_list);
         Button btnMyBill = (Button) view.findViewById(R.id.btn_my_bill);
+        Button btnFinishBill = (Button) view.findViewById(R.id.btn_finish_bill);
 
         btnUserList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,14 +37,14 @@ public class MeFragment extends BaseFragment {
             }
         });
 
+        btnFinishBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FinishBillActivity.startAct(mActivity);
+            }
+        });
+
         return view;
-    }
-
-    /**
-     * 加载我的账单
-     */
-    private void loadMyBill() {
-
     }
 
     @Override
