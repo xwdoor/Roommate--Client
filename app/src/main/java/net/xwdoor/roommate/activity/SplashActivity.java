@@ -1,16 +1,12 @@
 package net.xwdoor.roommate.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.RelativeLayout;
 
 import com.alibaba.fastjson.JSON;
-import com.orhanobut.logger.Logger;
-import com.orhanobut.logger.Settings;
 
-import net.xwdoor.roommate.BuildConfig;
 import net.xwdoor.roommate.R;
 import net.xwdoor.roommate.base.BaseActivity;
 import net.xwdoor.roommate.engine.Global;
@@ -24,14 +20,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initVariables() {
-        //初始化日志系统，由于是静态初始化，每初始化一次，就会多重复打印一次日志，所以慎用
-        Logger.initialize(
-                Settings.getInstance()
-                        .isShowMethodLink(true)
-                        .isShowThreadInfo(false)
-                        .setMethodOffset(1)
-                        .setLogPriority(BuildConfig.DEBUG ? Log.VERBOSE : Log.ASSERT)
-        );
+
     }
 
     @Override
@@ -49,8 +38,8 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onAnimationStart(final Animation animation) {
                 ArrayList<RequestParameter> params = new ArrayList<RequestParameter>();
-                params.add(new RequestParameter("loginName", "xiaowei"));
-                params.add(new RequestParameter("password", "xiaowei"));
+                params.add(new RequestParameter("loginName", "18684033888"));
+                params.add(new RequestParameter("pwd", "xwdoor"));
                 RemoteService.getInstance().invoke(RemoteService.API_KEY_LOGIN, SplashActivity.this,
                         params, new ARequestCallback() {
                     @Override
