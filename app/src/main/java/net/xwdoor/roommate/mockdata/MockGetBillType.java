@@ -18,12 +18,12 @@ public class MockGetBillType extends MockService {
     public String getJsonData(Context context) {
         Response response = getSuccessResponse();
         ArrayList<BillType> billTypes = new ArrayList<>();
-        billTypes.add(new BillType(0,"市场"));
-        billTypes.add(new BillType(1,"超市"));
-        billTypes.add(new BillType(2,"水费"));
-        billTypes.add(new BillType(3,"电费"));
-        billTypes.add(new BillType(4,"气费"));
-        billTypes.add(new BillType(5,"其他"));
+        billTypes.add(new BillType(1,"市场"));
+        billTypes.add(new BillType(2,"超市"));
+        billTypes.add(new BillType(3,"水费"));
+        billTypes.add(new BillType(4,"电费"));
+        billTypes.add(new BillType(5,"气费"));
+        billTypes.add(new BillType(6,"其他"));
         response.setResult(gson.toJson(billTypes));
         return gson.toJson(response);
     }

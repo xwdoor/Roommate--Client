@@ -52,12 +52,17 @@ public class Global {
                         Type listType = new TypeToken<ArrayList<BillType>>() {
                         }.getType();
                         sBillType = gson.fromJson(content, listType);
-
                     }
 
                     @Override
                     public void onFailure(String errorMessage) {
-
+                        sBillType = new ArrayList<>();
+                        sBillType.add(new BillType(1,"市场"));
+                        sBillType.add(new BillType(2,"超市"));
+                        sBillType.add(new BillType(3,"水费"));
+                        sBillType.add(new BillType(4,"电费"));
+                        sBillType.add(new BillType(5,"气费"));
+                        sBillType.add(new BillType(6,"其他"));
                     }
 
                     @Override
@@ -70,25 +75,11 @@ public class Global {
 
     public static String getBillType(int typeId) {
         String type = "其他";
-        switch (typeId) {
-            case 0:
-                type = "市场";
+        for(BillType billType : sBillType){
+            if(billType.type == typeId){
+                type = billType.desc;
                 break;
-            case 1:
-                type = "超市";
-                break;
-            case 2:
-                type = "水费";
-                break;
-            case 3:
-                type = "电费";
-                break;
-            case 4:
-                type = "气费";
-                break;
-            default:
-                type = "其他";
-                break;
+            }
         }
         return type;
     }

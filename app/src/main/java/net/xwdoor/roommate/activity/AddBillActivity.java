@@ -95,7 +95,7 @@ public class AddBillActivity extends BaseActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkMoney()) {
+                if (checkMoney()) {
                     saveBill();
                 }
             }
@@ -104,7 +104,7 @@ public class AddBillActivity extends BaseActivity {
         btnAddBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkMoney()) {
+                if (checkMoney()) {
                     saveAddBill();
                 }
             }
@@ -137,9 +137,11 @@ public class AddBillActivity extends BaseActivity {
         initBillType(Global.sBillType);
     }
 
-    /** 检测金额是否为空 */
-    private boolean checkMoney(){
-        if(TextUtils.isEmpty(etMoney.getText())){
+    /**
+     * 检测金额是否为空
+     */
+    private boolean checkMoney() {
+        if (TextUtils.isEmpty(etMoney.getText())) {
             showToast("请输入金额");
             return false;
         }
@@ -155,7 +157,7 @@ public class AddBillActivity extends BaseActivity {
         params.add(new RequestParameter("id", billInfo.id + ""));
 
         BillDao.getInstance(this).deleteBill(billInfo.id);
-        RemoteService.getInstance().invoke(RemoteService.API_KEY_DELETE_BILL,this,
+        RemoteService.getInstance().invoke(RemoteService.API_KEY_DELETE_BILL, this,
                 params, new ARequestCallback() {
                     @Override
                     public void onSuccess(String content) {
@@ -174,7 +176,7 @@ public class AddBillActivity extends BaseActivity {
         //添加账单
         BillDao.getInstance(this).addBill(getBillInfo());
 
-        RemoteService.getInstance().invoke(RemoteService.API_KEY_SAVE_BILL,this,
+        RemoteService.getInstance().invoke(RemoteService.API_KEY_SAVE_BILL, this,
                 params, null);
     }
 
@@ -189,7 +191,7 @@ public class AddBillActivity extends BaseActivity {
             BillDao.getInstance(this).updateBill(mBillInfo);
 
             //更新服务器账单
-            RemoteService.getInstance().invoke(RemoteService.API_KEY_UPDATE_BILL,this,
+            RemoteService.getInstance().invoke(RemoteService.API_KEY_UPDATE_BILL, this,
                     params, new ARequestCallback() {
                         @Override
                         public void onSuccess(String content) {
@@ -204,7 +206,7 @@ public class AddBillActivity extends BaseActivity {
             //添加账单
             BillDao.getInstance(this).addBill(getBillInfo());
             //添加服务器账单
-            RemoteService.getInstance().invoke(RemoteService.API_KEY_SAVE_BILL,this,
+            RemoteService.getInstance().invoke(RemoteService.API_KEY_SAVE_BILL, this,
                     params, new ARequestCallback() {
                         @Override
                         public void onSuccess(String content) {
@@ -240,11 +242,8 @@ public class AddBillActivity extends BaseActivity {
         params.add(new RequestParameter("date", new Date(System.currentTimeMillis()).toString()));
         params.add(new RequestParameter("desc", etDesc.getText().toString()));
         params.add(new RequestParameter("payerId", mPayerId + ""));
+        params.add(new RequestParameter("recordId", Global.me.getId() + ""));
 
-        params.add(new RequestParameter("record_user_id", mPayerId + ""));
-        params.add(new RequestParameter("spend_user_id", mPayerId + ""));
-        params.add(new RequestParameter("type_id", mBillType + ""));
-        params.add(new RequestParameter("desc", etDesc.getText().toString()));
         return params;
     }
 

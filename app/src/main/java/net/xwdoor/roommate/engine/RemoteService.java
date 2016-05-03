@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * 远程服务器访问
- *
+ * <p/>
  * Created by XWdoor on 2016/3/13.
  * 博客：http://blog.csdn.net/xwdoor
  */
@@ -101,7 +101,7 @@ public class RemoteService {
             //访问真实接口
             StringRequest request = createRequest(urlData, params, callback);
 
-            if(mQueue == null){
+            if (mQueue == null) {
                 mQueue = Volley.newRequestQueue(context);
             }
             mQueue.add(request);
@@ -162,7 +162,7 @@ public class RemoteService {
      */
     class RequestListener implements com.android.volley.Response.Listener<String>, com.android.volley.Response.ErrorListener {
 
-        private final RequestCallback mCallBack;
+        private RequestCallback mCallBack;
 
         public RequestListener(RequestCallback callback) {
             this.mCallBack = callback;
@@ -172,6 +172,7 @@ public class RemoteService {
         public void onErrorResponse(VolleyError volleyError) {
             if (mCallBack != null) {
                 mCallBack.onFailure(volleyError.getMessage());
+                mCallBack = null;
             }
         }
 
@@ -184,6 +185,7 @@ public class RemoteService {
                 } else {
                     mCallBack.onSuccess(response.getResult());
                 }
+                mCallBack = null;
             }
         }
     }

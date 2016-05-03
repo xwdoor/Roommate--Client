@@ -37,28 +37,7 @@ public class SplashActivity extends BaseActivity {
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(final Animation animation) {
-                ArrayList<RequestParameter> params = new ArrayList<RequestParameter>();
-                params.add(new RequestParameter("loginName", "18684033888"));
-                params.add(new RequestParameter("pwd", "xwdoor"));
-                RemoteService.getInstance().invoke(RemoteService.API_KEY_LOGIN, SplashActivity.this,
-                        params, new ARequestCallback() {
-                    @Override
-                    public void onSuccess(String content) {
-                        showLog(getString(R.string.login_success));
-//                        showJson(content);
-//                        Global.me = gson.fromJson(content, User.class);
-                        Global.me = JSON.parseObject(content,User.class);
-                        MainActivity.startAct(SplashActivity.this);
-                        finish();
-                    }
-
-                    @Override
-                    public void onFailure(String errorMessage) {
-                        showLog("自动登录失败：%s",errorMessage);
-                        LoginActivity.startAct(SplashActivity.this);
-                        finish();
-                    }
-                });
+                autoLogin();
             }
 
             @Override
@@ -84,5 +63,33 @@ public class SplashActivity extends BaseActivity {
      */
     private void checkUpdate() {
 
+    }
+
+    /**
+     * 自动登录
+     */
+    private void autoLogin() {
+        ArrayList<RequestParameter> params = new ArrayList<RequestParameter>();
+        params.add(new RequestParameter("loginName", "18684033888"));
+        params.add(new RequestParameter("pwd", "xwdoor"));
+        RemoteService.getInstance().invoke(RemoteService.API_KEY_LOGIN, SplashActivity.this,
+                params, new ARequestCallback() {
+                    @Override
+                    public void onSuccess(String content) {
+                        showLog(getString(R.string.login_success));
+//                        showJson(content);
+//                        Global.me = gson.fromJson(content, User.class);
+                        Global.me = JSON.parseObject(content, User.class);
+                        MainActivity.startAct(SplashActivity.this);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(String errorMessage) {
+                        showLog("自动登录失败：%s", errorMessage);
+                        LoginActivity.startAct(SplashActivity.this);
+                        finish();
+                    }
+                });
     }
 }

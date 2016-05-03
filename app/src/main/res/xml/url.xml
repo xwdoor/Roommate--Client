@@ -8,9 +8,9 @@
 
     <Node
         Key="login"
-        NetType="post"
-        MockClass="net.xwdoor.roommate.mockdata.MockLoginSuccess"
-        Url=""/>
+        NetType="get"
+        MockClass=""
+        Url="http://xwdoor.net/roommate/user/login.php"/>
 
     <Node
         Key="getAllBills"
@@ -33,8 +33,8 @@
     <Node
         Key="saveBill"
         NetType="post"
-        MockClass="net.xwdoor.roommate.mockdata.MockSaveBillSuccess"
-        Url=""/>
+        MockClass=""
+        Url="http://xwdoor.net/roommate/bill/addBill.php"/>
 
     <Node
         Key="updateBill"
