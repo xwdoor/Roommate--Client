@@ -15,8 +15,8 @@
     <Node
         Key="getAllBills"
         NetType="get"
-        MockClass="net.xwdoor.roommate.mockdata.MockGetAllBills"
-        Url=""/>
+        MockClass=""
+        Url="http://xwdoor.net/roommate/bill/getBills.php"/>
 
     <Node
         Key="getUserBill"
@@ -51,12 +51,12 @@
     <Node
         Key="getBillType"
         NetType="get"
-        MockClass="net.xwdoor.roommate.mockdata.MockGetBillType"
-        Url=""/>
+        MockClass=""
+        Url="http://xwdoor.net/roommate/bill/getbilltype.php"/>
 
     <Node
         Key="getRoommates"
         NetType="get"
-        MockClass="net.xwdoor.roommate.mockdata.MockGetRoommates"
-        Url=""/>
+        MockClass=""
+        Url="http://xwdoor.net/roommate/user/getAllUser.php"/>
 </url>

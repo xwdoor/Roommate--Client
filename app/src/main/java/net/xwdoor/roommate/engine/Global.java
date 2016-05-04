@@ -49,6 +49,7 @@ public class Global {
                 null, new RequestCallback() {
                     @Override
                     public void onSuccess(String content) {
+                        BaseActivity.showLog("获取账单类型：%s",content);
                         Type listType = new TypeToken<ArrayList<BillType>>() {
                         }.getType();
                         sBillType = gson.fromJson(content, listType);
@@ -76,8 +77,8 @@ public class Global {
     public static String getBillType(int typeId) {
         String type = "其他";
         for(BillType billType : sBillType){
-            if(billType.type == typeId){
-                type = billType.desc;
+            if(billType.typeId == typeId){
+                type = billType.typeName;
                 break;
             }
         }

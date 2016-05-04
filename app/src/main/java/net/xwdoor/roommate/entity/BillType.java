@@ -5,14 +5,14 @@ package net.xwdoor.roommate.entity;
  * 博客：http://blog.csdn.net/xwdoor
  */
 public class BillType {
-    public int type;
-    public String desc;
+    public int typeId;
+    public String typeName;
 
     public BillType() {
     }
 
     public BillType(int type, String desc) {
-        this.type = type;
-        this.desc = desc;
+        this.typeId = type;
+        this.typeName = desc;
     }
 }

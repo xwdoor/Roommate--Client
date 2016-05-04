@@ -253,8 +253,8 @@ public class AddBillActivity extends BaseActivity {
     private void initBillType(ArrayList<BillType> billTypes) {
         for (BillType billType : billTypes) {
             RadioButton rb = new RadioButton(this);
-            rb.setId(billType.type);
-            rb.setText(billType.desc);
+            rb.setId(billType.typeId);
+            rb.setText(billType.typeName);
             RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             rb.setLayoutParams(layoutParams);
             rb.setChecked(true);
