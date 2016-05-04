@@ -13,6 +13,12 @@
         Url="http://xwdoor.net/roommate/user/login.php"/>
 
     <Node
+        Key="addUser"
+        NetType="post"
+        MockClass=""
+        Url="http://xwdoor.net/roommate/user/addUser.php"/>
+
+    <Node
         Key="getAllBills"
         NetType="get"
         MockClass=""

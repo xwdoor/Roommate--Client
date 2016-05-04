@@ -6,6 +6,7 @@ import android.widget.Button;
 import net.xwdoor.roommate.R;
 import net.xwdoor.roommate.activity.BillListActivity;
 import net.xwdoor.roommate.activity.FinishBillActivity;
+import net.xwdoor.roommate.activity.UserListActivity;
 
 /**
  * Created by XWdoor on 2016/3/12.
@@ -41,6 +42,13 @@ public class MeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 FinishBillActivity.startAct(mActivity);
+            }
+        });
+
+        btnUserList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserListActivity.startAct(mActivity);
             }
         });
 
