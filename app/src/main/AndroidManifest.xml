@@ -24,6 +24,7 @@
         <activity android:name=".activity.BillListActivity"/>
         <activity android:name=".activity.FinishBillActivity"/>
         <activity android:name=".activity.UserListActivity"/>
+        <activity android:name=".activity.AddUserActivity"/>
     </application>
 
 </manifest>

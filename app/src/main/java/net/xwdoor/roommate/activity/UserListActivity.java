@@ -47,7 +47,7 @@ public class UserListActivity extends BaseActivity {
         tvAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("敬请期待");
+                AddUserActivity.startAct(UserListActivity.this);
             }
         });
 
