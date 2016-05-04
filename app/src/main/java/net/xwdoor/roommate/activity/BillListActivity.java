@@ -55,7 +55,7 @@ public class BillListActivity extends BaseActivity {
     @Override
     protected void loadData() {
         ArrayList<RequestParameter> params = new ArrayList<>();
-        params.add(new RequestParameter("id", Global.me.getId() + ""));
+        params.add(new RequestParameter("payerId", Global.me.getId() + ""));
         RemoteService.getInstance().invoke(RemoteService.API_KEY_GET_USER_BILL,this,
                 params, new ARequestCallback() {
                     @Override

@@ -68,6 +68,8 @@ public class AddBillActivity extends BaseActivity {
             mBillType = mBillInfo.billType;
         } else {
             isUpdateBill = false;
+            mPayerId = 1;
+            mBillType = 1;
         }
     }
 
@@ -154,7 +156,7 @@ public class AddBillActivity extends BaseActivity {
     private void deleteBill() {
         final BillInfo billInfo = getBillInfo();
         ArrayList<RequestParameter> params = new ArrayList<>();
-        params.add(new RequestParameter("id", billInfo.id + ""));
+        params.add(new RequestParameter("_id", billInfo.id + ""));
 
         BillDao.getInstance(this).deleteBill(billInfo.id);
         RemoteService.getInstance().invoke(RemoteService.API_KEY_DELETE_BILL, this,
@@ -235,7 +237,7 @@ public class AddBillActivity extends BaseActivity {
 
         ArrayList<RequestParameter> params = new ArrayList<>();
         if (mBillInfo != null) {//更新账单需要有账单id
-            params.add(new RequestParameter("id", mBillInfo.id + ""));
+            params.add(new RequestParameter("_id", mBillInfo.id + ""));
         }
         params.add(new RequestParameter("money", etMoney.getText().toString()));
         params.add(new RequestParameter("billType", mBillType + ""));
@@ -268,7 +270,7 @@ public class AddBillActivity extends BaseActivity {
         builder.setTitle("选择付款人");
         builder.setIcon(R.mipmap.ic_launcher);
         final String[] payers = Global.getPayers();
-        builder.setSingleChoiceItems(payers, mPayerId, new DialogInterface.OnClickListener() {
+        builder.setSingleChoiceItems(payers, mPayerId - 1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 mPayerId = Global.getPayerId(payers[which]);
