@@ -82,10 +82,10 @@ public abstract class BaseSuperAdapter<T> extends BaseAdapter {
     /**
      * 当Item的绑定关系发生变化时发生，即当新的Item显示时发生
      *
-     * @param holder
-     * @param viewType
-     * @param position
-     * @param t
+     * @param holder 每个Item的视图，可以通过此设置UI数据
+     * @param viewType Item的类型
+     * @param position item的位置
+     * @param t 该Item对应的数据
      */
     protected abstract void onBindItem(SuperViewHolder holder, int viewType, int position, T t);
 

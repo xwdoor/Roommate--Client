@@ -233,13 +233,13 @@ public class AddBillActivity extends BaseActivity {
 
     private ArrayList<RequestParameter> getBillInfoParam() {
 
-        ArrayList<RequestParameter> params = new ArrayList<RequestParameter>();
+        ArrayList<RequestParameter> params = new ArrayList<>();
         if (mBillInfo != null) {//更新账单需要有账单id
             params.add(new RequestParameter("id", mBillInfo.id + ""));
         }
         params.add(new RequestParameter("money", etMoney.getText().toString()));
         params.add(new RequestParameter("billType", mBillType + ""));
-        params.add(new RequestParameter("date", new Date(System.currentTimeMillis()).toString()));
+        params.add(new RequestParameter("date", DateUtils.DateToStr(new Date())));
         params.add(new RequestParameter("desc", etDesc.getText().toString()));
         params.add(new RequestParameter("payerId", mPayerId + ""));
         params.add(new RequestParameter("recordId", Global.me.getId() + ""));
