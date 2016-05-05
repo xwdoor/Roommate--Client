@@ -1,42 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
 
     <TextView
         android:id="@+id/tv_add_bill"
+        style="@style/textButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="记一笔账"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="18sp" />
+        android:layout_centerInParent="true"
+        android:layout_margin="5dp"
+        android:text="记一笔账"/>
 
-    <include layout="@layout/layout_line" />
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true">
-
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@mipmap/zhibo_panel_circle2"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:drawableTop="@mipmap/add_bill_small"
-            android:gravity="center"
-            android:textSize="22sp"
-            android:textColor="@android:color/holo_red_light"
-            android:text="记一笔"/>
-    </RelativeLayout>
 
 </RelativeLayout>

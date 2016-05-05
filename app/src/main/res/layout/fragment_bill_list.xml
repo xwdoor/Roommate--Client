@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextView
-        style="@style/Titlebar"
+        style="@style/titleBar"
         android:text="账单" />
     
     <net.xwdoor.roommate.view.DropDownMenu

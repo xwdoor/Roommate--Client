@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/tv_title"
-        style="@style/Titlebar"
+        style="@style/titleBar"
         android:text="添加用户"/>
 
     <LinearLayout

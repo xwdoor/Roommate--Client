@@ -10,7 +10,7 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/Titlebar"
+            style="@style/titleBar"
             android:layout_alignParentTop="true"
             android:text="记账" />
 

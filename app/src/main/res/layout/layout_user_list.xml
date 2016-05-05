@@ -9,7 +9,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            style="@style/Titlebar"
+            style="@style/titleBar"
             android:text="成员列表"/>
 
         <TextView

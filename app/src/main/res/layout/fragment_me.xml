@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,9 +15,9 @@
             android:id="@+id/iv_head_portrait"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:src="@mipmap/ic_default_persons" />
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/ic_default_persons"/>
 
         <TextView
             android:id="@+id/tv_moth_bill"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="21,388"
             android:textColor="@android:color/white"
-            android:textSize="23sp" />
+            android:textSize="23sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:text="总支出"
                     android:textColor="@android:color/white"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/tv_all_bill"
@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:text="1,222"
                     android:textColor="@android:color/white"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:text="未结算"
                     android:textColor="@android:color/white"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/tv_not_finish_bill"
@@ -77,26 +77,32 @@
                     android:layout_height="wrap_content"
                     android:text="1,222"
                     android:textColor="@android:color/white"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_my_bill"
+        style="@style/textButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:text="我的账单"/>
 
     <Button
         android:id="@+id/btn_finish_bill"
+        style="@style/textButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:text="账单结算"/>
 
     <Button
         android:id="@+id/btn_user_list"
+        style="@style/textButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:text="成员列表"/>
 </LinearLayout>

@@ -5,7 +5,7 @@
               android:layout_height="match_parent">
 
     <TextView
-        style="@style/Titlebar"
+        style="@style/titleBar"
         android:text="账单结算" />
 
     <ListView
