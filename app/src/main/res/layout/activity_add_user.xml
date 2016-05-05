@@ -87,6 +87,7 @@
             android:textSize="17sp"/>
 
         <EditText
+            android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="填写密码"
@@ -96,7 +97,9 @@
 
     <Button
         android:id="@+id/btn_add_user"
-        android:layout_width="wrap_content"
+        style="@style/textButtonStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:text="添加"/>
 </LinearLayout>
