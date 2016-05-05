@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import net.xwdoor.roommate.R;
 import net.xwdoor.roommate.base.BaseActivity;
-import net.xwdoor.roommate.db.BillDao;
 import net.xwdoor.roommate.engine.Global;
 import net.xwdoor.roommate.engine.RemoteService;
 import net.xwdoor.roommate.entity.BillInfo;
@@ -158,7 +157,7 @@ public class AddBillActivity extends BaseActivity {
         ArrayList<RequestParameter> params = new ArrayList<>();
         params.add(new RequestParameter("_id", billInfo.id + ""));
 
-        BillDao.getInstance(this).deleteBill(billInfo.id);
+//        BillDao.getInstance(this).deleteBill(billInfo.id);
         RemoteService.getInstance().invoke(RemoteService.API_KEY_DELETE_BILL, this,
                 params, new ARequestCallback() {
                     @Override
@@ -176,7 +175,7 @@ public class AddBillActivity extends BaseActivity {
     private void saveAddBill() {
         ArrayList<RequestParameter> params = getBillInfoParam();
         //添加账单
-        BillDao.getInstance(this).addBill(getBillInfo());
+//        BillDao.getInstance(this).addBill(getBillInfo());
 
         RemoteService.getInstance().invoke(RemoteService.API_KEY_SAVE_BILL, this,
                 params, null);
@@ -190,7 +189,7 @@ public class AddBillActivity extends BaseActivity {
         if (isUpdateBill) {//更新账单
             getBillInfo();
             //更新数据库账单
-            BillDao.getInstance(this).updateBill(mBillInfo);
+//            BillDao.getInstance(this).updateBill(mBillInfo);
 
             //更新服务器账单
             RemoteService.getInstance().invoke(RemoteService.API_KEY_UPDATE_BILL, this,
@@ -206,7 +205,7 @@ public class AddBillActivity extends BaseActivity {
 
         } else {
             //添加账单
-            BillDao.getInstance(this).addBill(getBillInfo());
+//            BillDao.getInstance(this).addBill(getBillInfo());
             //添加服务器账单
             RemoteService.getInstance().invoke(RemoteService.API_KEY_SAVE_BILL, this,
                     params, new ARequestCallback() {
@@ -220,6 +219,10 @@ public class AddBillActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 获取账单对象
+     * @return
+     */
     private BillInfo getBillInfo() {
 //        BillInfo billInfo = new BillInfo();
         if (mBillInfo == null) {
@@ -233,6 +236,10 @@ public class AddBillActivity extends BaseActivity {
         return mBillInfo;
     }
 
+    /**
+     * 将账单对象转换为表单数据
+     * @return
+     */
     private ArrayList<RequestParameter> getBillInfoParam() {
 
         ArrayList<RequestParameter> params = new ArrayList<>();
@@ -265,6 +272,9 @@ public class AddBillActivity extends BaseActivity {
         rgGroup.check(mBillType);
     }
 
+    /**
+     * 付款人选择框
+     */
     private void showChooseDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("选择付款人");

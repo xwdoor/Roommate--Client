@@ -42,7 +42,8 @@ public class RemoteService {
     public static final String API_KEY_DELETE_BILL = "deleteBill";
     public static final String API_KEY_GET_BILL_TYPE = "getBillType";
     public static final String API_KEY_GET_ROOMMATES = "getRoommates";
-    public static final String API_KEY_GET_UNFINISH_BILL = "getUnfinishBill";
+    public static final String API_KEY_GET_UNFINISHED_BILL = "getUnfinishBill";
+    public static final String API_KEY_FINISH_BILL = "finishBill";
 
     private final Gson gson;
     private static RemoteService service = null;

@@ -37,6 +37,12 @@
         Url="http://xwdoor.net/roommate/bill/getUnfinishedBill.php"/>
 
     <Node
+        Key="finishBill"
+        NetType="post"
+        MockClass=""
+        Url="http://xwdoor.net/roommate/bill/finishBill.php"/>
+
+    <Node
         Key="saveBill"
         NetType="post"
         MockClass=""

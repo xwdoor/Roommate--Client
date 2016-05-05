@@ -21,10 +21,10 @@ import net.xwdoor.roommate.adapter.superAdapter.IViewItemBindData;
 import net.xwdoor.roommate.adapter.superAdapter.SuperAdapter;
 import net.xwdoor.roommate.adapter.superAdapter.SuperViewHolder;
 import net.xwdoor.roommate.base.BaseActivity;
-import net.xwdoor.roommate.db.BillDao;
 import net.xwdoor.roommate.engine.Global;
 import net.xwdoor.roommate.engine.RemoteService;
 import net.xwdoor.roommate.entity.BillInfo;
+import net.xwdoor.roommate.net.RequestParameter;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -55,16 +55,24 @@ public class FinishBillActivity extends BaseActivity {
         btnFinishBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BillDao.getInstance(FinishBillActivity.this).finishBills();
-                showToast("结算完成");
-                finish();
+//                BillDao.getInstance(FinishBillActivity.this).finishBills();
+                ArrayList<RequestParameter> params = new ArrayList<>();
+                params.add(new RequestParameter("password", "xwdoor"));
+                RemoteService.getInstance().invoke(RemoteService.API_KEY_FINISH_BILL, FinishBillActivity.this, params, new ARequestCallback() {
+                    @Override
+                    public void onSuccess(String content) {
+                        showToast("结算完成");
+                        finish();
+                    }
+                });
+
             }
         });
     }
 
     @Override
     protected void loadData() {
-        RemoteService.getInstance().invoke(RemoteService.API_KEY_GET_UNFINISH_BILL, this, null, new ARequestCallback() {
+        RemoteService.getInstance().invoke(RemoteService.API_KEY_GET_UNFINISHED_BILL, this, null, new ARequestCallback() {
             @Override
             public void onSuccess(String content) {
                 Type listType = new TypeToken<ArrayList<BillInfo>>() {
