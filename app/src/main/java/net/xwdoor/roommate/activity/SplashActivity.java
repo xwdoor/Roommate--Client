@@ -58,7 +58,6 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void loadData() {
         Global.init(this);
-        checkUpdate();
     }
 
     /**
