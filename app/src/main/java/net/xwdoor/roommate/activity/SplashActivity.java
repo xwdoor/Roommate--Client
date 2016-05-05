@@ -1,6 +1,9 @@
 package net.xwdoor.roommate.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.RelativeLayout;
@@ -37,7 +40,7 @@ public class SplashActivity extends BaseActivity {
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(final Animation animation) {
-                autoLogin();
+                checkUpdate();
             }
 
             @Override
@@ -62,16 +65,25 @@ public class SplashActivity extends BaseActivity {
      * 检测更新
      */
     private void checkUpdate() {
-
+        //检查后进入登录界面
+        SharedPreferences sp = getSharedPreferences("roommate", Context.MODE_PRIVATE);
+        String loginName = sp.getString("loginName", "");
+        String password = sp.getString("password", "");
+        if (TextUtils.isEmpty(loginName) || TextUtils.isEmpty(password)) {
+            LoginActivity.startAct(SplashActivity.this);
+            finish();
+        } else {
+            autoLogin(loginName, password);
+        }
     }
 
     /**
      * 自动登录
      */
-    private void autoLogin() {
+    private void autoLogin(String loginName, String password) {
         ArrayList<RequestParameter> params = new ArrayList<RequestParameter>();
-        params.add(new RequestParameter("loginName", "18684033888"));
-        params.add(new RequestParameter("pwd", "xwdoor"));
+        params.add(new RequestParameter("loginName", loginName));
+        params.add(new RequestParameter("pwd", password));
         RemoteService.getInstance().invoke(RemoteService.API_KEY_LOGIN, SplashActivity.this,
                 params, new ARequestCallback() {
                     @Override
