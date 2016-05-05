@@ -1,5 +1,6 @@
 package net.xwdoor.roommate.fragment;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -24,7 +25,7 @@ import java.util.List;
 
 /**
  * 账单列表界面
- * 
+ * <p>
  * Created by XWdoor on 2016/3/12.
  * 博客：http://blog.csdn.net/xwdoor
  */
@@ -116,10 +117,14 @@ public class BillListFragment extends BaseFragment {
             @Override
             public void onSuccess(String content) {
                 //获取ArrayList<BillInfo>的类型，用于json解析
-                BaseActivity.showLog("加载账单");
-                Type listType = new TypeToken<ArrayList<BillInfo>>() {
-                }.getType();
-                mBills = gson.fromJson(content, listType);
+                BaseActivity.showLog("加载账单:%s", content);
+                if (!TextUtils.isEmpty(content)) {
+                    Type listType = new TypeToken<ArrayList<BillInfo>>() {
+                    }.getType();
+                    mBills = gson.fromJson(content, listType);
+                } else {
+                    mBills = new ArrayList<BillInfo>();
+                }
                 mBillAdapter = new BillFragmentAdapter(mActivity, mBills);
                 lvList.setAdapter(mBillAdapter);
             }
@@ -136,7 +141,9 @@ public class BillListFragment extends BaseFragment {
         });
     }
 
-    /** 更新账单列表 */
+    /**
+     * 更新账单列表
+     */
     public void updateBill(BillInfo billInfo) {
         for (BillInfo info : mBills) {
             if (info.id == billInfo.id) {
