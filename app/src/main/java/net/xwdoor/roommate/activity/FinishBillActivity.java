@@ -86,7 +86,7 @@ public class FinishBillActivity extends BaseActivity {
     }
 
     private void initAdapter(ArrayList<BillInfo> bills) {
-        if(bills!=null && bills.size()>0){
+        if (bills != null && bills.size() > 0) {
             SuperAdapter<BillInfo> adapter = new SuperAdapter<>(FinishBillActivity.this, bills, R.layout.item_fragment_bill);
             adapter.setItemBindListener(new IViewItemBindData<BillInfo>() {
                 @Override
@@ -99,7 +99,7 @@ public class FinishBillActivity extends BaseActivity {
             mLvUnfinishBill.setAdapter(adapter);
 
             initFooterView(bills);
-        }else {
+        } else {
             TextView tvView = new TextView(this);
             tvView.setText("无可结算账单");
             tvView.setGravity(Gravity.CENTER);
@@ -119,7 +119,7 @@ public class FinishBillActivity extends BaseActivity {
         EditText etCount = new EditText(this);
         etCount.setInputType(InputType.TYPE_CLASS_NUMBER);
         etCount.setMinimumWidth(100);
-        etCount.setText(bills.size()+"");
+        etCount.setText(Global.sUserList.size() + "");
         llContainer.addView(etCount);
 
         float avg = 0;
