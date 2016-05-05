@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -65,7 +67,14 @@ public class BillListActivity extends BaseActivity {
                         }.getType();
 
                         ArrayList<BillInfo> bills = gson.fromJson(content, listType);
-                        lvList.setAdapter(new BillFragmentAdapter(BillListActivity.this, bills));
+                        if(bills==null || bills.isEmpty()){
+                            TextView tvView = new TextView(BillListActivity.this);
+                            tvView.setText("无账单信息");
+                            tvView.setGravity(Gravity.CENTER);
+                            setContentView(tvView);
+                        }else {
+                            lvList.setAdapter(new BillFragmentAdapter(BillListActivity.this, bills));
+                        }
                     }
                 });
     }

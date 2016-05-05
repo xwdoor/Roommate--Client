@@ -178,7 +178,13 @@ public class AddBillActivity extends BaseActivity {
 //        BillDao.getInstance(this).addBill(getBillInfo());
 
         RemoteService.getInstance().invoke(RemoteService.API_KEY_SAVE_BILL, this,
-                params, null);
+                params, new ARequestCallback() {
+                    @Override
+                    public void onSuccess(String content) {
+                        showToast("保存成功");
+                        etMoney.setText("");
+                    }
+                });
     }
 
     /**
