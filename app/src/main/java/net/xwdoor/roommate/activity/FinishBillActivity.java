@@ -116,22 +116,23 @@ public class FinishBillActivity extends BaseActivity {
         tvView.setText("人数：");
         llContainer.addView(tvView);
 
+        int personCount = Global.sUserList != null ? Global.sUserList.size(): bills.size();
         EditText etCount = new EditText(this);
         etCount.setInputType(InputType.TYPE_CLASS_NUMBER);
         etCount.setMinimumWidth(100);
-        etCount.setText(Global.sUserList != null ? Global.sUserList.size() + "" : bills.size() + "");
+        etCount.setText(personCount + "");
         llContainer.addView(etCount);
 
-        float avg = 0;
+        float totalMoney = 0;
         for (BillInfo bill : bills) {
-            avg += bill.money;
+            totalMoney += bill.money;
         }
-        avg = avg / bills.size();
 
         final TextView tvAvg = new TextView(this);
-        tvAvg.setText("人均：" + avg);
+        tvAvg.setText("人均：" + totalMoney / personCount);
         llContainer.addView(tvAvg);
 
+        final float finalTotalMoney = totalMoney;
         etCount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -141,13 +142,7 @@ public class FinishBillActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!TextUtils.isEmpty(s)) {
-                    float avg = 0;
-                    for (BillInfo bill : bills) {
-                        avg += bill.money;
-                    }
-                    avg = avg / Integer.parseInt(s.toString());
-
-                    tvAvg.setText("人均：" + avg);
+                    tvAvg.setText("人均：" + finalTotalMoney / Integer.parseInt(s.toString()));
                 }
 
             }
