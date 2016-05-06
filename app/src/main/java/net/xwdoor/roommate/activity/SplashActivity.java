@@ -1,7 +1,13 @@
 package net.xwdoor.roommate.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.animation.Animation;
@@ -15,6 +21,7 @@ import net.xwdoor.roommate.base.BaseActivity;
 import net.xwdoor.roommate.engine.Global;
 import net.xwdoor.roommate.engine.RemoteService;
 import net.xwdoor.roommate.engine.User;
+import net.xwdoor.roommate.entity.AppInfo;
 import net.xwdoor.roommate.net.RequestParameter;
 
 import java.util.ArrayList;
@@ -40,6 +47,7 @@ public class SplashActivity extends BaseActivity {
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(final Animation animation) {
+                Global.init(SplashActivity.this);
                 checkUpdate();
             }
 
@@ -57,13 +65,40 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-        Global.init(this);
+
     }
 
     /**
      * 检测更新
      */
     private void checkUpdate() {
+        //检测新版本
+        RemoteService.getInstance().invoke(RemoteService.API_KEY_UPDATE, this, null, new ARequestCallback() {
+            @Override
+            public void onSuccess(String content) {
+                AppInfo appInfo = gson.fromJson(content, AppInfo.class);
+                int currentCode = getVersionCode();
+                if (currentCode < appInfo.versionCode) {
+                    //提示更新新版本
+                    showUpdateDialog(appInfo);
+                } else {
+                    startLogin();
+                }
+
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                startLogin();
+            }
+        });
+
+    }
+
+    /**
+     * 开始登录
+     */
+    private void startLogin() {
         //检查后进入登录界面
         SharedPreferences sp = getSharedPreferences("roommate", Context.MODE_PRIVATE);
         String loginName = sp.getString("loginName", "");
@@ -102,5 +137,53 @@ public class SplashActivity extends BaseActivity {
                         finish();
                     }
                 });
+    }
+
+    private int getVersionCode() {
+        // 获取packagemanager的实例
+        PackageManager packageManager = getPackageManager();
+        // getPackageName()是你当前类的包名，0代表是获取版本信息
+        PackageInfo packInfo = null;
+        try {
+            packInfo = packageManager.getPackageInfo(getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            return 1;
+        }
+        return packInfo.versionCode;
+    }
+
+    /**
+     * 显示升级对话框
+     */
+    private void showUpdateDialog(final AppInfo appInfo) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("发现新版本");//设置标题：发现新版本
+        builder.setMessage(appInfo.description);//设置内容
+        builder.setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //开始下载apk
+                Uri uri = Uri.parse(appInfo.downloadUrl);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+
+                finish();
+            }
+        });
+        builder.setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startLogin();
+            }
+        });
+
+        //点击返回键的监听
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                startLogin();
+            }
+        });
+        builder.show();
     }
 }

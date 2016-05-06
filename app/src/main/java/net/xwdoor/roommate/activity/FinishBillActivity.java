@@ -119,7 +119,7 @@ public class FinishBillActivity extends BaseActivity {
         EditText etCount = new EditText(this);
         etCount.setInputType(InputType.TYPE_CLASS_NUMBER);
         etCount.setMinimumWidth(100);
-        etCount.setText(Global.sUserList.size() + "");
+        etCount.setText(Global.sUserList != null ? Global.sUserList.size() + "" : bills.size() + "");
         llContainer.addView(etCount);
 
         float avg = 0;

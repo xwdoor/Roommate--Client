@@ -7,6 +7,12 @@
         <!--Url=""/>-->
 
     <Node
+        Key="update"
+        NetType="get"
+        MockClass=""
+        Url="http://xwdoor.net/roommate/update.php"/>
+
+    <Node
         Key="login"
         NetType="get"
         MockClass=""
