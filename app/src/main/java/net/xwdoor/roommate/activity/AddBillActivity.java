@@ -67,7 +67,7 @@ public class AddBillActivity extends BaseActivity {
             mBillType = mBillInfo.billType;
         } else {
             isUpdateBill = false;
-            mPayerId = 1;
+            mPayerId = Global.me.getId();
             mBillType = 1;
         }
     }
@@ -272,7 +272,7 @@ public class AddBillActivity extends BaseActivity {
             rb.setText(billType.typeName);
             RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             rb.setLayoutParams(layoutParams);
-            rb.setChecked(true);
+//            rb.setChecked(true);
             rgGroup.addView(rb);
         }
         rgGroup.check(mBillType);

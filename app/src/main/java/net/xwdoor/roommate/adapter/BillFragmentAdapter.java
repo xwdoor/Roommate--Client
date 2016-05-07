@@ -134,7 +134,11 @@ public class BillFragmentAdapter extends BaseAdapter {
         if (position > 0) {
             if (getItem(position - 1).date.equals(info.date)) {
                 holder.tvDate.setVisibility(View.INVISIBLE);
+            } else {
+                holder.tvDate.setVisibility(View.VISIBLE);
             }
+        } else {
+            holder.tvDate.setVisibility(View.VISIBLE);
         }
         holder.tvType.setText(Global.getBillType(info.billType));
         holder.tvPayerName.setText("(" + Global.getPayerName(info.payerId) + ")");

@@ -1,6 +1,8 @@
 package net.xwdoor.roommate.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -56,7 +58,22 @@ public class FinishBillActivity extends BaseActivity {
         btnFinishBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                BillDao.getInstance(FinishBillActivity.this).finishBills();
+               finishBill();
+
+            }
+        });
+    }
+
+    private void finishBill() {
+//        BillDao.getInstance(FinishBillActivity.this).finishBills();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("确认结算");
+        builder.setMessage("是否进行结算？");
+        builder.setIcon(R.mipmap.logo);
+        builder.setNegativeButton("否",null);
+        builder.setPositiveButton("是", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
                 ArrayList<RequestParameter> params = new ArrayList<>();
                 params.add(new RequestParameter("password", "xwdoor"));
                 RemoteService.getInstance().invoke(RemoteService.API_KEY_FINISH_BILL, FinishBillActivity.this, params, new ARequestCallback() {
@@ -66,9 +83,9 @@ public class FinishBillActivity extends BaseActivity {
                         finish();
                     }
                 });
-
             }
         });
+        builder.show();
     }
 
     @Override
