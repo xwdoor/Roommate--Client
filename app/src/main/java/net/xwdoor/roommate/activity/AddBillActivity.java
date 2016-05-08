@@ -15,6 +15,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
+
 import net.xwdoor.roommate.R;
 import net.xwdoor.roommate.base.BaseActivity;
 import net.xwdoor.roommate.engine.Global;
@@ -24,6 +26,7 @@ import net.xwdoor.roommate.entity.BillType;
 import net.xwdoor.roommate.net.RequestParameter;
 import net.xwdoor.roommate.utils.DateUtils;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -134,8 +137,35 @@ public class AddBillActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-//        Global.getPayerName(mPayerId);
-        initBillType(Global.sBillType);
+        if (Global.sBillType == null) {//账单类型还没有来得及初始化
+            //获取账单类型
+            RemoteService.getInstance().invoke(RemoteService.API_KEY_GET_BILL_TYPE, this,
+                    null, new ARequestCallback() {
+                        @Override
+                        public void onSuccess(String content) {
+                            showLog("获取账单类型：%s", content);
+                            Type listType = new TypeToken<ArrayList<BillType>>() {
+                            }.getType();
+                            Global.sBillType = gson.fromJson(content, listType);
+                            initBillType(Global.sBillType);
+                        }
+
+                        @Override
+                        public void onFailure(String errorMessage) {
+                            ArrayList<BillType> sBillType = new ArrayList<>();
+                            sBillType.add(new BillType(1, "市场"));
+                            sBillType.add(new BillType(2, "超市"));
+                            sBillType.add(new BillType(3, "水费"));
+                            sBillType.add(new BillType(4, "电费"));
+                            sBillType.add(new BillType(5, "气费"));
+                            sBillType.add(new BillType(6, "其他"));
+
+                            Global.sBillType = sBillType;
+                            initBillType(Global.sBillType);
+                        }
+                    });
+        }
+
     }
 
     /**
@@ -227,6 +257,7 @@ public class AddBillActivity extends BaseActivity {
 
     /**
      * 获取账单对象
+     *
      * @return
      */
     private BillInfo getBillInfo() {
@@ -244,6 +275,7 @@ public class AddBillActivity extends BaseActivity {
 
     /**
      * 将账单对象转换为表单数据
+     *
      * @return
      */
     private ArrayList<RequestParameter> getBillInfoParam() {
@@ -266,6 +298,7 @@ public class AddBillActivity extends BaseActivity {
      * 初始化账单类型
      */
     private void initBillType(ArrayList<BillType> billTypes) {
+
         for (BillType billType : billTypes) {
             RadioButton rb = new RadioButton(this);
             rb.setId(billType.typeId);

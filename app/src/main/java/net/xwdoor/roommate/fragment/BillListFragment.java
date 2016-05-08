@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * 账单列表界面
- * <p>
+ * <p/>
  * Created by XWdoor on 2016/3/12.
  * 博客：http://blog.csdn.net/xwdoor
  */
@@ -44,6 +44,52 @@ public class BillListFragment extends BaseFragment {
         View view = View.inflate(mActivity, R.layout.fragment_bill_list, null);
 //        lvList = (ListView) view.findViewById(R.id.lv_list);
         ddMenu = (DropDownMenu) view.findViewById(R.id.ddm_dropDownMenu);
+
+
+        return view;
+    }
+
+    @Override
+    protected void initData() {
+
+        RemoteService.getInstance().invoke(RemoteService.API_KEY_GET_ALL_BILLS, mActivity, null, new RequestCallback() {
+            @Override
+            public void onSuccess(String content) {
+                //获取ArrayList<BillInfo>的类型，用于json解析
+                BaseActivity.showLog("加载账单:%s", content);
+                if (!TextUtils.isEmpty(content)) {
+                    Type listType = new TypeToken<ArrayList<BillInfo>>() {
+                    }.getType();
+                    mBills = gson.fromJson(content, listType);
+                } else {
+                    mBills = new ArrayList<>();
+                    mActivity.showToast("您还没有账单，赶快记一笔吧");
+                }
+
+                loadFilterView();
+
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                mActivity.showToast(errorMessage);
+            }
+
+            @Override
+            public void onCookieExpired() {
+
+            }
+        });
+    }
+
+    /**
+     * 初始化筛选界面
+     */
+    private void loadFilterView() {
+        if(Global.sUserList==null || Global.sBillType==null){
+            mActivity.showToast("账单加载失败");
+            return;
+        }
 
         //筛选条目
         mHeader = new String[]{"付款人", "结算", "日期"};
@@ -107,38 +153,8 @@ public class BillListFragment extends BaseFragment {
             }
         });
 
-        return view;
-    }
-
-    @Override
-    protected void initData() {
-
-        RemoteService.getInstance().invoke(RemoteService.API_KEY_GET_ALL_BILLS, mActivity, null, new RequestCallback() {
-            @Override
-            public void onSuccess(String content) {
-                //获取ArrayList<BillInfo>的类型，用于json解析
-                BaseActivity.showLog("加载账单:%s", content);
-                if (!TextUtils.isEmpty(content)) {
-                    Type listType = new TypeToken<ArrayList<BillInfo>>() {
-                    }.getType();
-                    mBills = gson.fromJson(content, listType);
-                } else {
-                    mBills = new ArrayList<BillInfo>();
-                }
-                mBillAdapter = new BillFragmentAdapter(mActivity, mBills);
-                lvList.setAdapter(mBillAdapter);
-            }
-
-            @Override
-            public void onFailure(String errorMessage) {
-                mActivity.showToast(errorMessage);
-            }
-
-            @Override
-            public void onCookieExpired() {
-
-            }
-        });
+        mBillAdapter = new BillFragmentAdapter(mActivity, mBills);
+        lvList.setAdapter(mBillAdapter);
     }
 
     /**
