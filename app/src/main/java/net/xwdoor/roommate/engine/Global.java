@@ -49,7 +49,7 @@ public class Global {
                 null, new RequestCallback() {
                     @Override
                     public void onSuccess(String content) {
-                        BaseActivity.showLog("获取账单类型：%s",content);
+                        BaseActivity.showLog("获取账单类型：%s", content);
                         Type listType = new TypeToken<ArrayList<BillType>>() {
                         }.getType();
                         sBillType = gson.fromJson(content, listType);
@@ -58,12 +58,12 @@ public class Global {
                     @Override
                     public void onFailure(String errorMessage) {
                         sBillType = new ArrayList<>();
-                        sBillType.add(new BillType(1,"市场"));
-                        sBillType.add(new BillType(2,"超市"));
-                        sBillType.add(new BillType(3,"水费"));
-                        sBillType.add(new BillType(4,"电费"));
-                        sBillType.add(new BillType(5,"气费"));
-                        sBillType.add(new BillType(6,"其他"));
+                        sBillType.add(new BillType(1, "市场"));
+                        sBillType.add(new BillType(2, "超市"));
+                        sBillType.add(new BillType(3, "水费"));
+                        sBillType.add(new BillType(4, "电费"));
+                        sBillType.add(new BillType(5, "气费"));
+                        sBillType.add(new BillType(6, "其他"));
                     }
 
                     @Override
@@ -76,8 +76,8 @@ public class Global {
 
     public static String getBillType(int typeId) {
         String type = "其他";
-        for(BillType billType : sBillType){
-            if(billType.typeId == typeId){
+        for (BillType billType : sBillType) {
+            if (billType.typeId == typeId) {
                 type = billType.typeName;
                 break;
             }
@@ -99,9 +99,11 @@ public class Global {
 //            payerList.put("赵景明", String.valueOf(2));
 //            payerList.put("白杨", String.valueOf(3));
 
-            for (User user : sUserList) {
-                payerList.put(String.valueOf(user.getId()), user.getRealName());
-                payerList.put(user.getRealName(), String.valueOf(user.getId()));
+            if (sUserList != null) {
+                for (User user : sUserList) {
+                    payerList.put(String.valueOf(user.getId()), user.getRealName());
+                    payerList.put(user.getRealName(), String.valueOf(user.getId()));
+                }
             }
         }
         return payerList;

@@ -108,7 +108,7 @@ public class FinishBillActivity extends BaseActivity {
             adapter.setItemBindListener(new IViewItemBindData<BillInfo>() {
                 @Override
                 public void onBindItem(SuperViewHolder holder, int viewType, int position, BillInfo billInfo) {
-                    holder.setText(R.id.tv_type, "未结算");
+                    holder.setText(R.id.tv_type, "账单");
                     holder.setText(R.id.tv_money, billInfo.money + "");
                     holder.setText(R.id.tv_payerName, "(" + Global.getPayerName(billInfo.payerId) + ")");
                 }

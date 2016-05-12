@@ -20,7 +20,7 @@
             android:src="@mipmap/ic_default_persons"/>
 
         <TextView
-            android:id="@+id/tv_moth_bill"
+            android:id="@+id/tv_total_bill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="21,388"
@@ -43,12 +43,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="总支出"
+                    android:text="已结算"
                     android:textColor="@android:color/white"
                     android:textSize="12sp"/>
 
                 <TextView
-                    android:id="@+id/tv_all_bill"
+                    android:id="@+id/tv_finish_bill"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1,222"
@@ -72,7 +72,7 @@
                     android:textSize="12sp"/>
 
                 <TextView
-                    android:id="@+id/tv_not_finish_bill"
+                    android:id="@+id/tv_unfinished_bill"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1,222"

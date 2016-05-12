@@ -22,11 +22,7 @@ public class AddBillFragment extends BaseFragment {
     protected View initView() {
         View view = View.inflate(mActivity, R.layout.fragment_add_bill, null);
 
-        tvAllBill = (TextView) view.findViewById(R.id.tv_all_bill);
-        tvMothBill = (TextView) view.findViewById(R.id.tv_moth_bill);
-        tvNotBill = (TextView) view.findViewById(R.id.tv_not_finish_bill);
         tvAddBill = (TextView) view.findViewById(R.id.tv_add_bill);
-        ivHead = (ImageView) view.findViewById(R.id.iv_head_portrait);
 
         tvAddBill.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * 账单数据适配器
- * <p/>
+ * <p>
  * Created by XWdoor on 2016/3/16.
  * 博客：http://blog.csdn.net/xwdoor
  */
@@ -120,6 +120,7 @@ public class BillFragmentAdapter extends BaseAdapter {
             convertView = View.inflate(mContext, R.layout.item_fragment_bill, null);
             holder = new ViewHolder();
             holder.tvMoney = (TextView) convertView.findViewById(R.id.tv_money);
+            holder.tvFinish = (TextView) convertView.findViewById(R.id.tv_finish);
             holder.tvDate = (TextView) convertView.findViewById(R.id.tv_date);
             holder.tvType = (TextView) convertView.findViewById(R.id.tv_type);
             holder.tvPayerName = (TextView) convertView.findViewById(R.id.tv_payerName);
@@ -130,6 +131,8 @@ public class BillFragmentAdapter extends BaseAdapter {
 
         BillInfo info = getItem(position);
         holder.tvMoney.setText("￥" + info.money);
+
+        //设置付款日期，并且相同日期只显示一次
         holder.tvDate.setText(info.date);
         if (position > 0) {
             if (getItem(position - 1).date.equals(info.date)) {
@@ -140,13 +143,25 @@ public class BillFragmentAdapter extends BaseAdapter {
         } else {
             holder.tvDate.setVisibility(View.VISIBLE);
         }
+
+        //设置账单类型
         holder.tvType.setText(Global.getBillType(info.billType));
+
+        //设置是否结算
+        if (info.isFinish) {
+            holder.tvFinish.setText("(已结算)");
+        } else {
+            holder.tvFinish.setText("(未结算)");
+        }
+
+        //设置付款人
         holder.tvPayerName.setText("(" + Global.getPayerName(info.payerId) + ")");
         return convertView;
     }
 
     static class ViewHolder {
         TextView tvMoney;
+        TextView tvFinish;
         TextView tvDate;
         TextView tvType;
         TextView tvPayerName;

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="5dp">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="5dp">
 
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="10sp"
-        android:textColor="#a000"/>
+        android:textColor="#a000"
+        android:textSize="10sp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,29 +23,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
             android:text="类型"
             android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:layout_marginLeft="10dp"/>
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/tv_type"
+            android:text="(未结算)"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/tv_payerName"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
-            android:text="(付款人)"
             android:layout_alignParentRight="true"
-            android:textColor="@android:color/darker_gray"
             android:gravity="center"
+            android:text="(付款人)"
+            android:textColor="@android:color/darker_gray"
             android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/tv_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/tv_payerName"
             android:text="金额"
             android:textColor="@android:color/black"
-            android:layout_toLeftOf="@id/tv_payerName"
-            android:layout_marginRight="5dp"
             android:textSize="14sp"
             />
 
@@ -57,5 +67,5 @@
         android:layout_height="1px"
         android:layout_marginTop="10dp"
         android:background="@android:color/black"
-        android:visibility="invisible" />
+        android:visibility="invisible"/>
 </LinearLayout>
