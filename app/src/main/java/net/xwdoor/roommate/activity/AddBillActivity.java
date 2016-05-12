@@ -164,6 +164,8 @@ public class AddBillActivity extends BaseActivity {
                             initBillType(Global.sBillType);
                         }
                     });
+        }else {
+            initBillType(Global.sBillType);
         }
 
     }
