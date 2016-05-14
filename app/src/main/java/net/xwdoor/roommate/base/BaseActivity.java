@@ -65,7 +65,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         @Override
         public void onFailure(String errorMessage) {
-            showLog("请求失败：%s",errorMessage);
+            showLog("网络错误：%s",errorMessage);
             showToast(errorMessage);
         }
 

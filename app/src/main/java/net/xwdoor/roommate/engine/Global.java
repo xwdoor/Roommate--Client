@@ -5,7 +5,6 @@ import com.google.gson.reflect.TypeToken;
 
 import net.xwdoor.roommate.base.BaseActivity;
 import net.xwdoor.roommate.entity.BillType;
-import net.xwdoor.roommate.net.RequestCallback;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class Global {
         final Gson gson = new Gson();
         //初始化所有用户
         RemoteService.getInstance().invoke(RemoteService.API_KEY_GET_ROOMMATES, activity,
-                null, new RequestCallback() {
+                null, activity.new ARequestCallback() {
                     @Override
                     public void onSuccess(String content) {
                         Type listType = new TypeToken<ArrayList<User>>() {
@@ -32,21 +31,11 @@ public class Global {
 
                         sUserList = gson.fromJson(content, listType);
                     }
-
-                    @Override
-                    public void onFailure(String errorMessage) {
-
-                    }
-
-                    @Override
-                    public void onCookieExpired() {
-
-                    }
                 });
 
         //获取账单类型
         RemoteService.getInstance().invoke(RemoteService.API_KEY_GET_BILL_TYPE, activity,
-                null, new RequestCallback() {
+                null, activity.new ARequestCallback() {
                     @Override
                     public void onSuccess(String content) {
                         BaseActivity.showLog("获取账单类型：%s", content);
@@ -64,11 +53,6 @@ public class Global {
                         sBillType.add(new BillType(4, "电费"));
                         sBillType.add(new BillType(5, "气费"));
                         sBillType.add(new BillType(6, "其他"));
-                    }
-
-                    @Override
-                    public void onCookieExpired() {
-
                     }
                 });
 

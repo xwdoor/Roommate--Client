@@ -86,7 +86,8 @@ public class BillListFragment extends BaseFragment {
      * 初始化筛选界面
      */
     private void loadFilterView() {
-        if(Global.sUserList==null || Global.sBillType==null){
+        if (Global.sUserList == null || Global.sBillType == null) {
+            Global.init(mActivity);
             mActivity.showToast("账单加载失败");
             return;
         }

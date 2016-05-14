@@ -52,6 +52,7 @@ public class LoginActivity extends BaseActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Global.init(LoginActivity.this);
                 String loginName = etLoginName.getText().toString();
                 String password = etPassword.getText().toString();
                 if (TextUtils.isEmpty(loginName) || TextUtils.isEmpty(password)) {
