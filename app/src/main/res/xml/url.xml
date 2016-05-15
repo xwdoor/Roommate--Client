@@ -19,6 +19,12 @@
         Url="http://xwdoor.net/roommate/user/login.php"/>
 
     <Node
+        Key="updateUser"
+        NetType="post"
+        MockClass=""
+        Url="http://www.xwdoor.net/roommate/user/updateUser.php"/>
+
+    <Node
         Key="addUser"
         NetType="post"
         MockClass=""

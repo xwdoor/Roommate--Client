@@ -54,7 +54,7 @@ public class UserListActivity extends BaseActivity {
         tvAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddUserActivity.startAct(UserListActivity.this);
+                AddUserActivity.startAct(UserListActivity.this,null);
             }
         });
 

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.google.gson.reflect.TypeToken;
 
 import net.xwdoor.roommate.R;
+import net.xwdoor.roommate.activity.AddUserActivity;
 import net.xwdoor.roommate.activity.BillListActivity;
 import net.xwdoor.roommate.activity.FinishBillActivity;
 import net.xwdoor.roommate.activity.LoginActivity;
@@ -42,6 +43,7 @@ public class MeFragment extends BaseFragment {
         Button btnMyBill = (Button) view.findViewById(R.id.btn_my_bill);
         Button btnFinishBill = (Button) view.findViewById(R.id.btn_finish_bill);
         Button btnLogout = (Button) view.findViewById(R.id.btn_logout);
+        Button btnPersonalInfo = (Button) view.findViewById(R.id.btn_personal_info);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +78,19 @@ public class MeFragment extends BaseFragment {
             }
         });
 
+        btnPersonalInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddUserActivity.startAct(mActivity, Global.me);
+            }
+        });
+
         return view;
     }
 
     @Override
     protected void initData() {
-        //加载个人账单
+        //加载个人账单，显示未结算、已结算、总账单
         ArrayList<RequestParameter> params = new ArrayList<>();
         params.add(new RequestParameter("payerId", Global.me.getId() + ""));
         RemoteService.getInstance().invoke(RemoteService.API_KEY_GET_USER_BILL, mActivity,

@@ -83,6 +83,22 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_user_list"
+        style="@style/textButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="成员列表"/>
+
+    <Button
+        android:id="@+id/btn_personal_info"
+        style="@style/textButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="我的信息"/>
+
+    <Button
         android:id="@+id/btn_my_bill"
         style="@style/textButtonStyle"
         android:layout_width="match_parent"
@@ -97,14 +113,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:text="账单结算"/>
-
-    <Button
-        android:id="@+id/btn_user_list"
-        style="@style/textButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="成员列表"/>
 
     <Button
         android:id="@+id/btn_logout"

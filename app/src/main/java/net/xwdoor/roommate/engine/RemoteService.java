@@ -36,6 +36,7 @@ public class RemoteService {
     public static final String API_KEY_UPDATE = "update";
     public static final String API_KEY_LOGIN = "login";
     public static final String API_KEY_ADD_USER = "addUser";
+    public static final String API_KEY_UPDATE_USER = "updateUser";
     public static final String API_KEY_GET_ALL_BILLS = "getAllBills";
     public static final String API_KEY_GET_USER_BILL = "getUserBill";
     public static final String API_KEY_SAVE_BILL = "saveBill";
