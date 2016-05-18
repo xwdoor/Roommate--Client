@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import net.xwdoor.roommate.R;
 import net.xwdoor.roommate.base.BaseActivity;
+import net.xwdoor.roommate.engine.Global;
 import net.xwdoor.roommate.engine.RemoteService;
 import net.xwdoor.roommate.engine.User;
 import net.xwdoor.roommate.net.RequestParameter;
@@ -80,7 +81,7 @@ public class AddUserActivity extends BaseActivity {
         }
     }
 
-    private void updateUser(User user) {
+    private void updateUser(final User user) {
         ArrayList<RequestParameter> params = new ArrayList<>();
         params.add(new RequestParameter("_id", user.getId() + ""));
         params.add(new RequestParameter("realName", user.getRealName()));
@@ -90,6 +91,8 @@ public class AddUserActivity extends BaseActivity {
         RemoteService.getInstance().invoke(RemoteService.API_KEY_UPDATE_USER, this, params, new ARequestCallback() {
             @Override
             public void onSuccess(String content) {
+                Global.me = user;
+                Global.me.setPassword("");
                 showToast(content);
                 finish();
             }
